@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brick Mosaic | Joey Schnepel</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Brick Mosaic - Image-to-LEGO mosaic converter with build instructions and block counts by Joey Schnepel.">
+    <meta name="keywords" content="Brick Mosaic, LEGO, Python, Image Processing, Joey Schnepel">
+    <meta name="author" content="Joey Schnepel">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="favicon.ico">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Unicorn Studio Background -->
+    <div id="background-container" role="presentation" aria-hidden="true">
+        <div data-us-project="KStS2GUP1nXxxUuqhO3n" style="width:100vw; height: 100vh; position: fixed; top: 0; left: 0; z-index: -1;"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="glass-nav" role="navigation" aria-label="Project navigation">
+        <div class="nav-content">
+            <a href="index.html" class="nav-link">← Back to Portfolio</a>
+            <a href="#overview" class="nav-link active">Overview</a>
+            <a href="#features" class="nav-link">Features</a>
+            <a href="#tech-stack" class="nav-link">Tech Stack</a>
+            <a href="#github" class="nav-link">GitHub</a>
+        </div>
+    </nav>
+
+    <!-- Project Hero -->
+    <main id="main-content">
+    <section id="overview" class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-name">Brick Mosaic</h1>
+            <h2 class="hero-title">Image-to-LEGO Mosaic Converter</h2>
+            <p class="hero-tagline" style="margin-bottom: 2rem;">
+                Analyze and break down images into mosaics with step-by-step instructions and block counts to build with LEGO bricks.
+            </p>
+            <div class="hero-ctas">
+                <a href="#github" class="glass-button">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M10 2C5.58 2 2 5.58 2 10C2 13.54 4.29 16.53 7.47 17.59C7.87 17.66 8.02 17.42 8.02 17.21C8.02 17.02 8.01 16.39 8.01 15.72C6 16.09 5.48 15.16 5.32 14.68C5.23 14.43 4.84 13.72 4.5 13.53C4.22 13.38 3.82 13.01 4.49 13C5.12 13.01 5.57 13.58 5.72 13.82C6.44 15.03 7.59 14.69 8.05 14.48C8.12 13.96 8.33 13.62 8.56 13.41C6.84 13.2 5.04 12.52 5.04 9.54C5.04 8.71 5.23 8.02 5.74 7.48C5.66 7.27 5.38 6.47 5.82 5.38C5.82 5.38 6.49 5.17 8.02 6.19C8.66 6 9.34 5.91 10.02 5.91C10.7 5.91 11.38 6 12.02 6.19C13.55 5.16 14.22 5.38 14.22 5.38C14.66 6.47 14.38 7.27 14.3 7.48C14.81 8.02 15 8.7 15 9.54C15 12.53 13.19 13.2 11.47 13.41C11.76 13.66 12.01 14.14 12.01 14.89C12.01 15.96 12 16.82 12 17.21C12 17.42 12.15 17.67 12.55 17.59C15.71 16.53 18 13.53 18 10C18 5.58 14.42 2 10 2Z" fill="currentColor"/>
+                    </svg>
+                    View on GitHub
+                </a>
+                <a href="#features" class="glass-button">
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Overview -->
+    <section id="project-overview" class="section">
+        <div class="container">
+            <h2 class="section-title">Project Overview</h2>
+            <div class="about-content glass-card">
+                <p><strong>Brick Mosaic</strong> is an intelligent image processing application that transforms any image into a buildable LEGO mosaic. The tool analyzes input images, optimizes color palettes to match available LEGO brick colors, and generates detailed build instructions including brick counts and placement guides.</p>
+                <p>This project combines computer vision, color theory, and algorithmic optimization to create accurate and aesthetically pleasing LEGO mosaics. Whether you're recreating a photo, designing custom art, or planning a large-scale LEGO build, Brick Mosaic provides the blueprint.</p>
+                <p>The application outputs comprehensive build data including brick quantities by color, layer-by-layer instructions, and cost estimates for purchasing required pieces.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="section">
+        <div class="container">
+            <h2 class="section-title">Key Features</h2>
+            <div class="skill-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                <div class="glass-card" style="padding: 2rem;">
+                    <h3 style="color: var(--accent-color); margin-bottom: 1rem; font-size: 1.25rem;">📸 Image Analysis</h3>
+                    <p style="color: var(--text-secondary);">Upload any image and automatically analyze it for mosaic conversion with customizable resolution settings.</p>
+                </div>
+                <div class="glass-card" style="padding: 2rem;">
+                    <h3 style="color: var(--accent-color); margin-bottom: 1rem; font-size: 1.25rem;">🎨 Color Optimization</h3>
+                    <p style="color: var(--text-secondary);">Intelligent color matching algorithm maps image pixels to available LEGO brick colors for accurate reproduction.</p>
+                </div>
+                <div class="glass-card" style="padding: 2rem;">
+                    <h3 style="color: var(--accent-color); margin-bottom: 1rem; font-size: 1.25rem;">📋 Build Instructions</h3>
+                    <p style="color: var(--text-secondary);">Generate detailed step-by-step instructions with layer-by-layer placement guides.</p>
+                </div>
+                <div class="glass-card" style="padding: 2rem;">
+                    <h3 style="color: var(--accent-color); margin-bottom: 1rem; font-size: 1.25rem;">🧮 Block Count</h3>
+                    <p style="color: var(--text-secondary);">Comprehensive inventory of required bricks by color and size with cost estimation.</p>
+                </div>
+                <div class="glass-card" style="padding: 2rem;">
+                    <h3 style="color: var(--accent-color); margin-bottom: 1rem; font-size: 1.25rem;">🖼️ Preview Generation</h3>
+                    <p style="color: var(--text-secondary);">Visual preview of final mosaic result before starting your build.</p>
+                </div>
+                <div class="glass-card" style="padding: 2rem;">
+                    <h3 style="color: var(--accent-color); margin-bottom: 1rem; font-size: 1.25rem;">💾 Export Options</h3>
+                    <p style="color: var(--text-secondary);">Export instructions as PDF, CSV brick lists, and printable build guides.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section id="tech-stack" class="section">
+        <div class="container">
+            <h2 class="section-title">Technology Stack</h2>
+
+            <div class="skill-category">
+                <h4 class="category-name">Core Technologies</h4>
+                <div class="experience-item glass-card" style="margin-bottom: 1.5rem;">
+                    <div class="experience-bullets" style="margin-left: 0;">
+                        <li><strong>Python</strong> - Core programming language for image processing and algorithm implementation</li>
+                        <li><strong>PIL/Pillow</strong> - Image manipulation and processing library</li>
+                        <li><strong>NumPy</strong> - Efficient array operations and mathematical computations</li>
+                        <li><strong>OpenCV</strong> - Advanced computer vision operations</li>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h4 class="category-name">Algorithms & Techniques</h4>
+                <div class="experience-item glass-card" style="margin-bottom: 1.5rem;">
+                    <div class="experience-bullets" style="margin-left: 0;">
+                        <li><strong>Color Quantization</strong> - K-means clustering for palette reduction</li>
+                        <li><strong>Dithering</strong> - Floyd-Steinberg algorithm for improved visual quality</li>
+                        <li><strong>Color Space Conversion</strong> - RGB to LAB color space for perceptual accuracy</li>
+                        <li><strong>Nearest Neighbor Search</strong> - Efficient color matching to LEGO palette</li>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h4 class="category-name">Output & Export</h4>
+                <div class="experience-item glass-card">
+                    <div class="experience-bullets" style="margin-left: 0;">
+                        <li><strong>ReportLab</strong> - PDF generation for printable instructions</li>
+                        <li><strong>Matplotlib</strong> - Visualization of mosaic previews and color distributions</li>
+                        <li><strong>CSV Export</strong> - Brick inventory lists compatible with BrickLink and LEGO Pick-a-Brick</li>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub & Resources -->
+    <section id="github" class="section">
+        <div class="container">
+            <h2 class="section-title">Source Code & Resources</h2>
+            <div class="contact-content glass-card">
+                <p>This project is open source and available on GitHub. Feel free to explore the code, submit issues, or contribute to the project.</p>
+                <div class="contact-links">
+                    <a href="#" class="contact-link glass-button" style="padding: 1rem 2rem;">
+                        <svg width="24" height="24" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M10 2C5.58 2 2 5.58 2 10C2 13.54 4.29 16.53 7.47 17.59C7.87 17.66 8.02 17.42 8.02 17.21C8.02 17.02 8.01 16.39 8.01 15.72C6 16.09 5.48 15.16 5.32 14.68C5.23 14.43 4.84 13.72 4.5 13.53C4.22 13.38 3.82 13.01 4.49 13C5.12 13.01 5.57 13.58 5.72 13.82C6.44 15.03 7.59 14.69 8.05 14.48C8.12 13.96 8.33 13.62 8.56 13.41C6.84 13.2 5.04 12.52 5.04 9.54C5.04 8.71 5.23 8.02 5.74 7.48C5.66 7.27 5.38 6.47 5.82 5.38C5.82 5.38 6.49 5.17 8.02 6.19C8.66 6 9.34 5.91 10.02 5.91C10.7 5.91 11.38 6 12.02 6.19C13.55 5.16 14.22 5.38 14.22 5.38C14.66 6.47 14.38 7.27 14.3 7.48C14.81 8.02 15 8.7 15 9.54C15 12.53 13.19 13.2 11.47 13.41C11.76 13.66 12.01 14.14 12.01 14.89C12.01 15.96 12 16.82 12 17.21C12 17.42 12.15 17.67 12.55 17.59C15.71 16.53 18 13.53 18 10C18 5.58 14.42 2 10 2Z" fill="currentColor"/>
+                        </svg>
+                        View Repository on GitHub
+                    </a>
+                </div>
+                <p style="margin-top: 2rem; font-size: 0.95rem; color: var(--text-secondary);">
+                    <strong>Note:</strong> GitHub repository link will be added once the project is published.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Portfolio -->
+    <section class="section" style="padding-top: 1rem;">
+        <div class="container" style="text-align: center;">
+            <a href="index.html" class="glass-button" style="display: inline-flex;">
+                ← Back to Portfolio
+            </a>
+        </div>
+    </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <p class="footer-copyright">&copy; 2025 Joey Schnepel. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top glass-button" aria-label="Back to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 4L4 12L5.4 13.4L11 7.8V20H13V7.8L18.6 13.4L20 12L12 4Z" fill="currentColor"/>
+        </svg>
+    </button>
+
+    <!-- Unicorn Studio Script -->
+    <script type="text/javascript">!function(){if(!window.UnicornStudio){window.UnicornStudio={isInitialized:!1};var i=document.createElement("script");i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.34/dist/unicornStudio.umd.js",i.onload=function(){window.UnicornStudio.isInitialized||(UnicornStudio.init(),window.UnicornStudio.isInitialized=!0)},(document.head || document.body).appendChild(i)}}();</script>
+
+    <!-- Main JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
