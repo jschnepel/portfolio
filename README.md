@@ -1,143 +1,58 @@
-# Joey Schnepel - Software Engineer Portfolio
+# Hey, I'm Joey Schnepel 👋
 
-A modern, glassmorphic portfolio website featuring Unicorn Studio animated background.
+I'm a software engineer with 9 years of experience building scalable systems, automating complex workflows, and solving challenging problems across the full stack. Currently working as a Process Engineer at TSMC in Phoenix, where I'm building web applications and programs to streamline manufacturing operations for some of the biggest names in tech—Nvidia, Apple, AMD, Tesla, and Intel.
 
-## 🚀 Quick Start
+## What I Do
 
-1. Open `index.html` in your browser
-2. The site should load with the Unicorn Studio background
+I specialize in **full-stack development**, **cloud infrastructure** (AWS, GCP), and **DevOps practices**. My work spans everything from React frontends to Python backends, with a strong focus on automation, data analytics, and deploying machine learning models in production. I've spent my career modernizing legacy systems, building CI/CD pipelines, and helping teams deliver value faster through Agile practices.
 
-## 📁 Project Structure
+### My Background
 
-```
-portfolio/
-├── index.html          # Main HTML file
-├── styles.css          # Glassmorphism styles
-├── script.js           # Interactive JavaScript
-├── assets/
-│   ├── logos/          # Company logos (SAIC, TSMC, Intel, Infosys)
-│   ├── certs/          # Certification logos
-│   ├── skills/         # Tech stack logos (React, Python, etc.)
-│   └── projects/       # Project screenshots/GIFs
-└── README.md
-```
+- **Currently**: Process Engineer at **TSMC** (March 2024 - Present)
+- **Previously**: IT Specialist at **Intel** | DevOps Engineer & Data Analyst at **Infosys** | Software Engineer at **SAIC**
+- **Education**: Pursuing M.S. in Software Engineering (AI) at Western Governors University | B.S. in Software Engineering
+- **Certifications**: AWS Certified Cloud Practitioner, ITIL 4 Foundation, Google Data Analytics, Certified ScrumMaster
 
-## 🖼️ Images You Need to Add
+## Technologies I Work With
 
-### Company Logos (`assets/logos/`)
-- `saic-logo.png` - SAIC logo
-- `tsmc-logo.png` - TSMC logo
-- `intel-logo.png` - Intel logo
-- `infosys-logo.png` - Infosys logo
+**Languages**: Python, Java, JavaScript, SQL, HTML, CSS
+**Web Frameworks**: React, Vue, Angular, Next.js
+**Cloud & DevOps**: AWS, Docker, Kubernetes, Jenkins, Terraform, Git, GCP
+**Data & ML**: Pandas, NumPy, TensorFlow, scikit-learn, Power BI, Tableau
 
-### Certifications (`assets/certs/`)
-- `aws-ccp.png` - AWS Certified Cloud Practitioner
-- `itil4.png` - ITIL 4 Foundation
-- `google-analytics.png` - Google Data Analytics
-- `csm.png` - Certified ScrumMaster
-- `dod-clearance.png` - DoD Secret Clearance badge
-- `dol-apprentice.png` - Dept of Labor Apprenticeship
+## About This Portfolio
 
-### Tech Stack Logos (`assets/skills/`)
+This portfolio showcases my work and experience through a modern, glassmorphic design built with vanilla HTML, CSS, and JavaScript. I wanted to create something that reflects my attention to detail and passion for clean, user-friendly interfaces.
 
-**Languages:**
-- `python.svg`, `java.svg`, `javascript.svg`, `sql.svg`, `html.svg`, `css.svg`
+**Features**:
+- Glassmorphism design with animated background (Unicorn Studio)
+- Fully responsive across all devices
+- Smooth animations and interactive micro-interactions
+- SEO optimized with comprehensive meta tags
+- Built without frameworks—just clean, performant code
 
-**Web Frameworks:**
-- `react.svg`, `vue.svg`, `angular.svg`, `nextjs.svg`
+**Tech Stack**: HTML5, CSS3 (Grid, Flexbox, Custom Properties), Vanilla JavaScript
 
-**Cloud & DevOps:**
-- `aws.svg`, `docker.svg`, `kubernetes.svg`, `jenkins.svg`, `terraform.svg`, `git.svg`, `gcp.svg`
+## Live Portfolio
 
-**Data & ML:**
-- `pandas.svg`, `numpy.svg`, `tensorflow.svg`, `sklearn.svg`, `powerbi.svg`, `tableau.svg`
+🌐 **[View My Portfolio](https://jschnepel.github.io/portfolio)**
+📄 **[Download My Resume](https://github.com/jschnepel/portfolio/blob/main/JoeySchnepelResume.pdf)**
 
-💡 **Tip:** You can find free tech logos at:
-- [Simple Icons](https://simpleicons.org/)
-- [DevIcon](https://devicon.dev/)
-- [Skill Icons](https://github.com/tandpfun/skill-icons)
+## Get In Touch
 
-### Project Screenshots (`assets/projects/`)
-- `project1.png` - Your real project screenshot/GIF
-- `placeholder.png` - Placeholder for projects 2-5
+I'm always open to connecting with fellow developers, discussing new opportunities, or collaborating on interesting projects.
 
-## 📝 TODO Before Launch
+- **Email**: [joeyschnepel@gmail.com](mailto:joeyschnepel@gmail.com)
+- **LinkedIn**: [linkedin.com/in/joey-schnepel](https://linkedin.com/in/joey-schnepel)
+- **GitHub**: [github.com/jschnepel](https://github.com/jschnepel)
+- **Phone**: +1 REDACTED
 
-1. **Add Resume PDF**
-   - Place your resume at `assets/resume.pdf`
-   - Update the download links in `script.js` (line 69)
+## What I'm Currently Focused On
 
-2. **Add All Images**
-   - See image list above
-   - Recommended size: 512x512px for logos/certs
+Right now, I'm diving deep into AI and machine learning as part of my Master's program, while continuing to build scalable solutions at TSMC. I'm particularly interested in how AI can improve manufacturing processes and how cloud-native architectures can support real-time data analytics at scale.
 
-3. **Update Project 1 Details**
-   - Edit `index.html` lines 222-235
-   - Add real project title, description, tech stack
-   - Add screenshot to `assets/projects/project1.png`
-
-4. **Customize About Section**
-   - Update the about text in `index.html` lines 56-59
-   - Optionally add a photo
-
-5. **Add Hover Effect Reference**
-   - Once you find the project hover effect you like
-   - Share it and we'll implement it
-
-6. **Update Contact Links**
-   - Update GitHub username in footer (line 415)
-   - Verify all other contact info is correct
-
-## 🎨 Customization
-
-### Colors
-Edit CSS variables in `styles.css` (lines 9-16):
-```css
---text-primary: #f0f0f0;
---accent-color: #60a5fa;
-```
-
-### Unicorn Studio Background
-The background is already integrated. If you need to change it:
-- Update the project ID in `index.html` line 16
-
-## 🌐 Deployment
-
-### Option 1: GitHub Pages
-1. Create a new GitHub repo
-2. Push this folder
-3. Enable GitHub Pages in Settings
-
-### Option 2: Netlify
-1. Drag and drop this folder to [Netlify](https://app.netlify.com/)
-2. Done!
-
-### Option 3: Vercel
-1. Install Vercel CLI: `npm i -g vercel`
-2. Run `vercel` in this directory
-
-## ✨ Features
-
-- ✅ Glassmorphic design with blur effects
-- ✅ Sticky navigation with active section highlighting
-- ✅ Unicorn Studio animated background
-- ✅ Fully responsive (mobile, tablet, desktop)
-- ✅ Smooth scroll animations
-- ✅ Interactive hover effects
-- ✅ Accessible (semantic HTML, ARIA labels)
-- ⏳ Project hover effect (pending reference)
-
-## 📱 Responsive Breakpoints
-
-- Mobile: < 640px
-- Tablet: 641px - 968px
-- Desktop: > 968px
-
-## 🔧 Browser Support
-
-- Chrome, Firefox, Safari, Edge (latest versions)
-- Glassmorphism requires backdrop-filter support
+When I'm not coding or optimizing systems, you'll find me on the soccer field coaching club teams—applying the same principles of teamwork and continuous improvement that drive my engineering work.
 
 ---
 
-**Built with vanilla HTML, CSS, and JavaScript**
+**Built with ❤️ using vanilla HTML, CSS, and JavaScript**
