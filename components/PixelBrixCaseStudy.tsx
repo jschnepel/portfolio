@@ -9,10 +9,26 @@ const LIVE_URL = "https://pixel-brix.vercel.app/";
 
 const TAGS = ["Canvas API", "Color Science", "TypeScript (strict)", "React", "TDD"];
 
+// A curated mosaic palette for the decorative hero strip (amber-centric, brick-like).
+const MOSAIC = [
+  "#F5C344", "#FCE08A", "#1A1D22", "#2A2D34", "#8A6D1F", "#E6E8EC",
+  "#F5C344", "#1A1D22", "#FCE08A", "#6B5A2A", "#2A2D34", "#F5C344",
+  "#C99A2E", "#1A1D22", "#FCE08A", "#3A3D44", "#F5C344", "#8A6D1F",
+];
+const TILE_COUNT = 48;
+
+const stats = [
+  ["9,216", "bricks, max build"],
+  ["~50ms", "full color match"],
+  ["31", "passing tests"],
+  ["0", "servers"],
+];
+
 const built = [
   {
     title: "Perceptual color matching",
     body: "RGB to CIE LAB conversion, then nearest brick via Delta-E CIE76 against a hand-tuned palette with pre-computed LAB values (about 50ms for a full 48×48 grid). I chose CIE76 over CIEDE2000 on purpose: roughly 3× faster, with a difference that's imperceptible at brick resolution.",
+    featured: true,
   },
   {
     title: "CLAHE contrast enhancement",
@@ -28,7 +44,7 @@ const built = [
   },
   {
     title: "Build guide + 2,304-tile animation",
-    body: "A build-guide generator with per-color counts and totals, plus a GPU-composited CSS flip-tile animation on the hero that runs up to 2,304 simultaneous tile flips on the compositor thread. Deliberately not a JS animation library: it was a measured architectural decision.",
+    body: "A build-guide generator with per-color counts and totals, plus a GPU-composited CSS flip-tile animation that runs up to 2,304 simultaneous tile flips on the compositor thread. Deliberately not a JS animation library: it was a measured architectural decision.",
   },
 ];
 
@@ -70,13 +86,31 @@ const stack = [
   "Playwright",
 ];
 
+function MosaicStrip() {
+  return (
+    <div
+      className="grid gap-[2px] rounded-md overflow-hidden"
+      style={{ gridTemplateColumns: `repeat(${TILE_COUNT}, minmax(0, 1fr))` }}
+      aria-hidden="true"
+    >
+      {Array.from({ length: TILE_COUNT }).map((_, i) => (
+        <span
+          key={i}
+          className="brick-tile aspect-square"
+          style={{ background: MOSAIC[i % MOSAIC.length], animationDelay: `${i * 0.014}s` }}
+        />
+      ))}
+    </div>
+  );
+}
+
 function ImageFrame({ src, alt }: { src: string; alt: string }) {
   return (
     <div
       className="rounded-lg overflow-hidden"
       style={{
         border: `0.5px solid ${ACCENT}22`,
-        boxShadow: `0 0 0 0.5px rgba(255,255,255,0.03), 0 18px 50px -20px rgba(0,0,0,0.7)`,
+        boxShadow: `0 0 0 0.5px rgba(255,255,255,0.03), 0 24px 60px -24px rgba(0,0,0,0.75)`,
         background: "rgba(255,255,255,0.02)",
       }}
     >
@@ -113,27 +147,27 @@ export function PixelBrixCaseStudy() {
         className="font-[family-name:var(--font-share-tech-mono)] text-[10px] uppercase tracking-[2px] mb-4"
         style={{ color: ACCENT }}
       >
-        Platform
+        Platform · Shipped
       </p>
-      <h1 className="page-title mb-3">PixelBrix</h1>
-      <p className="text-[#AAA] text-[15px] leading-[1.8] max-w-[640px] mb-6">
+      <h1
+        className="font-[family-name:var(--font-chakra-petch)] font-bold text-white mb-5"
+        style={{ fontSize: "clamp(40px, 6vw, 68px)", letterSpacing: "-1px", lineHeight: 0.95 }}
+      >
+        PixelBrix
+      </h1>
+
+      {/* Signature: a mosaic strip that reveals like a build */}
+      <div className="mb-7 max-w-[520px]">
+        <MosaicStrip />
+      </div>
+
+      <p className="text-[#AAA] text-[16px] leading-[1.8] max-w-[600px] mb-7">
         Turn any photo into a brick-mosaic build guide, entirely in the browser. Upload an image,
         pick an art style, and get a buildable grid with real brick-compatible color codes and exact
-        per-color brick counts.
+        per-color counts.
       </p>
 
-      <div className="flex items-center gap-2.5 flex-wrap mb-5">
-        {["Shipped", "Live in browser", "Zero server"].map((b) => (
-          <span
-            key={b}
-            className="font-[family-name:var(--font-share-tech-mono)] text-[9px] uppercase tracking-[1px] px-2.5 py-1 rounded"
-            style={{ color: ACCENT, background: `${ACCENT}0C`, border: `0.5px solid ${ACCENT}20` }}
-          >
-            {b}
-          </span>
-        ))}
-      </div>
-      <div className="flex flex-wrap items-center gap-4 mb-10">
+      <div className="flex flex-wrap items-center gap-4 mb-12">
         <div className="flex flex-wrap">
           {TAGS.map((t) => (
             <TechTag key={t} label={t} color={ACCENT} active />
@@ -143,8 +177,8 @@ export function PixelBrixCaseStudy() {
           href={LIVE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="font-[family-name:var(--font-share-tech-mono)] text-[10px] uppercase tracking-[1.5px] px-4 py-2 rounded transition-colors duration-300"
-          style={{ color: ACCENT, border: `0.5px solid ${ACCENT}40` }}
+          className="font-[family-name:var(--font-share-tech-mono)] text-[10px] uppercase tracking-[1.5px] px-4 py-2 rounded transition-all duration-300 hover:brightness-110"
+          style={{ color: "#0D0F12", background: ACCENT }}
         >
           Try it live &rarr;
         </a>
@@ -157,8 +191,27 @@ export function PixelBrixCaseStudy() {
         />
       </ScrollReveal>
 
+      {/* ── STAT STRIP ── */}
+      <section className="grid grid-cols-2 md:grid-cols-4 gap-6 py-12 mt-4">
+        {stats.map(([num, label], i) => (
+          <ScrollReveal key={label} delay={0.05 * (i + 1)}>
+            <div>
+              <div
+                className="font-[family-name:var(--font-chakra-petch)] font-bold tabular-nums leading-none mb-2"
+                style={{ fontSize: "clamp(28px, 4vw, 40px)", color: ACCENT }}
+              >
+                {num}
+              </div>
+              <div className="font-[family-name:var(--font-share-tech-mono)] text-[10px] uppercase tracking-[1.5px] text-[#888]">
+                {label}
+              </div>
+            </div>
+          </ScrollReveal>
+        ))}
+      </section>
+
       {/* ── PROBLEM ── */}
-      <section className="py-16">
+      <section className="mb-16">
         <BentoTile>
           <SectionLabel>// the problem</SectionLabel>
           <p className="text-[#BBB] text-[15px] leading-[1.9]">
@@ -175,20 +228,29 @@ export function PixelBrixCaseStudy() {
         <SectionLabel>// from a photo to a parts list</SectionLabel>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ScrollReveal>
+            <p className="font-[family-name:var(--font-share-tech-mono)] text-[10px] uppercase tracking-[1.5px] text-[#666] mb-2">
+              in · a photo
+            </p>
             <ImageFrame src="/projects/pixelbrix/mclaren.jpg" alt="Original photo of a green McLaren supercar" />
           </ScrollReveal>
           <ScrollReveal delay={0.08}>
+            <p
+              className="font-[family-name:var(--font-share-tech-mono)] text-[10px] uppercase tracking-[1.5px] mb-2"
+              style={{ color: ACCENT }}
+            >
+              out · a buildable mosaic
+            </p>
             <ImageFrame src="/projects/pixelbrix/mclaren-mosaic.png" alt="The green McLaren rendered as a brick mosaic by PixelBrix" />
           </ScrollReveal>
         </div>
         <p className="text-[#666] text-[12px] mt-3 font-[family-name:var(--font-share-tech-mono)]">
-          A real photo in (left), a buildable brick mosaic out (right). Every tile maps to the
-          nearest available brick color, with per-color counts generated alongside it.
+          Every tile maps to the nearest available brick color, with per-color counts generated
+          alongside it.
         </p>
       </section>
 
       {/* ── BUILD GUIDE ── */}
-      <section className="mb-16">
+      <section className="mb-20">
         <ScrollReveal>
           <SectionLabel>// every color, counted</SectionLabel>
           <ImageFrame
@@ -202,47 +264,37 @@ export function PixelBrixCaseStudy() {
         </ScrollReveal>
       </section>
 
-      {/* ── WHAT'S BUILT ── */}
-      <section className="mb-16">
+      {/* ── WHAT'S BUILT (bento) ── */}
+      <section className="mb-20">
         <SectionLabel>// what&apos;s built</SectionLabel>
-        <p className="text-[#888] text-[14px] leading-[1.7] max-w-[640px] mb-10">
+        <p className="text-[#888] text-[14px] leading-[1.7] max-w-[600px] mb-8">
           A complete client-side image-processing pipeline running on the Canvas API. No server
           round-trip, no waiting, instant results.
         </p>
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {built.map((b, i) => (
-            <BentoTile key={b.title} delay={0.04 * (i + 1)}>
-              <h3 className="font-[family-name:var(--font-chakra-petch)] font-bold text-[16px] text-white mb-2 leading-tight">
-                {b.title}
-              </h3>
-              <p className="text-[#9A9A9A] text-[13.5px] leading-[1.8]">{b.body}</p>
+            <BentoTile key={b.title} delay={0.04 * (i + 1)} className={b.featured ? "md:col-span-2" : ""}>
+              <div className="flex items-start gap-4">
+                <span
+                  className="font-[family-name:var(--font-share-tech-mono)] text-[11px] mt-0.5 tabular-nums shrink-0"
+                  style={{ color: `${ACCENT}99` }}
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h3 className="font-[family-name:var(--font-chakra-petch)] font-bold text-[16px] text-white mb-2 leading-tight">
+                    {b.title}
+                  </h3>
+                  <p className="text-[#9A9A9A] text-[13.5px] leading-[1.8]">{b.body}</p>
+                </div>
+              </div>
             </BentoTile>
           ))}
         </div>
       </section>
 
-      {/* ── SPECS ── */}
-      <section className="mb-16">
-        <SectionLabel>// specs</SectionLabel>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-5">
-          {specs.map(([k, v], i) => (
-            <ScrollReveal key={k} delay={0.04 * (i + 1)}>
-              <div
-                className="flex items-baseline justify-between gap-4 pb-3"
-                style={{ borderBottom: "0.5px solid rgba(255,255,255,0.05)" }}
-              >
-                <span className="font-[family-name:var(--font-share-tech-mono)] text-[10px] uppercase tracking-[1.5px] text-[#666]">
-                  {k}
-                </span>
-                <span className="text-[#CCC] text-[13px] text-right">{v}</span>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
-      </section>
-
       {/* ── FULL APP ── */}
-      <section className="mb-16">
+      <section className="mb-20">
         <ScrollReveal>
           <SectionLabel>// the full build view</SectionLabel>
           <ImageFrame
@@ -256,18 +308,40 @@ export function PixelBrixCaseStudy() {
         </ScrollReveal>
       </section>
 
-      {/* ── ENGINEERING ── */}
-      <section className="mb-16">
-        <SectionLabel>// engineering</SectionLabel>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {engineering.map((e, i) => (
-            <BentoTile key={e.title} delay={0.05 * (i + 1)}>
-              <h3 className="font-[family-name:var(--font-chakra-petch)] font-bold text-[15px] text-white mb-2">
-                {e.title}
-              </h3>
-              <p className="text-[#888] text-[13px] leading-[1.75]">{e.body}</p>
-            </BentoTile>
-          ))}
+      {/* ── ENGINEERING + SPECS ── */}
+      <section className="mb-16 grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-10">
+        <div>
+          <SectionLabel>// engineering</SectionLabel>
+          <div className="space-y-4">
+            {engineering.map((e, i) => (
+              <ScrollReveal key={e.title} delay={0.05 * (i + 1)}>
+                <div className="pb-4" style={{ borderBottom: "0.5px solid rgba(255,255,255,0.05)" }}>
+                  <h3 className="font-[family-name:var(--font-chakra-petch)] font-bold text-[15px] text-white mb-1.5">
+                    {e.title}
+                  </h3>
+                  <p className="text-[#888] text-[13px] leading-[1.75]">{e.body}</p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+        <div>
+          <SectionLabel>// specs</SectionLabel>
+          <div className="space-y-4">
+            {specs.map(([k, v], i) => (
+              <ScrollReveal key={k} delay={0.04 * (i + 1)}>
+                <div
+                  className="flex items-baseline justify-between gap-3 pb-3"
+                  style={{ borderBottom: "0.5px solid rgba(255,255,255,0.05)" }}
+                >
+                  <span className="font-[family-name:var(--font-share-tech-mono)] text-[10px] uppercase tracking-[1px] text-[#666]">
+                    {k}
+                  </span>
+                  <span className="text-[#CCC] text-[12.5px] text-right">{v}</span>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 

@@ -219,6 +219,20 @@ button:focus-visible {
 }
 
 /* ==========================================
+   PIXELBRIX — MOSAIC TILE REVEAL
+   (reduced-motion rule above neutralizes this)
+   ========================================== */
+@keyframes brickIn {
+  from { opacity: 0; transform: scale(0.35); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.brick-tile {
+  opacity: 0;
+  animation: brickIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ==========================================
    DA VINCI — CHAPTER "BUILDING NOW" DOT
    (reduced-motion rule above neutralizes this)
    ========================================== */

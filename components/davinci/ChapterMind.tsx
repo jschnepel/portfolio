@@ -31,6 +31,46 @@ const capabilities = [
     img: "/projects/davinci/hero_faces.png",
     alt: "Da Vinci choosing between two guests based on who is attending",
   },
+  {
+    label: "// commit",
+    title: "When you're open, it commits",
+    body: "Once a guest is facing it and in range, it stops weighing and opens with a line meant for that person: “Hello there, yes, you. Come closer.” The whole read exists to earn this one moment.",
+    img: "/projects/davinci/hero_speaking.png",
+    alt: "Da Vinci fully engaging a single guest who is facing it and in range",
+  },
+];
+
+const analytics = [
+  {
+    img: "02_decision_funnel",
+    cap: "The funnel: 426 person-detections narrow to the 212 frames it chose to engage.",
+    alt: "Decision funnel from detections through the engagement heuristic to engagements",
+  },
+  {
+    img: "03_score_components",
+    cap: "Why the chosen target won, the weighted score split into attention, proximity, centrality, and hook.",
+    alt: "Stacked area chart decomposing the engagement score over time",
+  },
+  {
+    img: "01_engagement_timeline",
+    cap: "Who it engaged, frame by frame, across the session.",
+    alt: "Timeline of which person the agent engaged over time",
+  },
+  {
+    img: "06_hooks_and_states",
+    cap: "What it opened on, a specific color hook, plus the orientation states of everyone else.",
+    alt: "The specific-detail hook used on the engaged target and per-person orientation states",
+  },
+  {
+    img: "05_attention_heatmap",
+    cap: "Where engaged guests actually stood, in image space.",
+    alt: "Heatmap of where engaged targets were located in the frame",
+  },
+  {
+    img: "08_population_over_time",
+    cap: "Crowd size versus the agent's state: idle, bidding, or engaging.",
+    alt: "People in view versus the agent's state over time",
+  },
 ];
 
 const specs = [
@@ -86,24 +126,31 @@ export function ChapterMind() {
 
       {/* every decision on the record */}
       <section className="mb-16">
+        <SectionLabel>// every decision on the record</SectionLabel>
+        <p className="text-[#999] text-[14px] leading-[1.8] max-w-[620px] mb-8">
+          A character staged for guests has to be trustworthy and tunable, so the system logs and
+          visualizes every choice it makes: who it engaged, for how long, and exactly which factors
+          drove each decision. Nothing is a black box.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+          {analytics.map((a, i) => (
+            <ScrollReveal key={a.img} delay={0.04 * (i + 1)}>
+              <ImageFrame src={`/projects/davinci/${a.img}.png`} alt={a.alt} />
+              <p className="text-[#666] text-[11.5px] mt-2.5 font-[family-name:var(--font-share-tech-mono)] leading-[1.6]">
+                {a.cap}
+              </p>
+            </ScrollReveal>
+          ))}
+        </div>
         <ScrollReveal>
-          <SectionLabel>// every decision on the record</SectionLabel>
-          <p className="text-[#999] text-[14px] leading-[1.8] max-w-[620px] mb-6">
-            A character staged for guests has to be trustworthy and tunable, so the system logs and
-            visualizes every choice it makes: who it engaged, for how long, and exactly which factors
-            drove each decision. Nothing is a black box.
-          </p>
-          <ImageFrame
-            src="/projects/davinci/dashboard.png"
-            alt="Analytics dashboard visualizing the character's engagement decisions and the factors behind them"
-          />
           <div
-            className="rounded-lg overflow-hidden mt-6"
+            className="rounded-lg overflow-hidden"
             style={{ border: `0.5px solid ${ACCENT}22`, background: "#000" }}
           >
             <video
               className="w-full h-auto block"
               src="/projects/davinci/explainability.mp4"
+              poster="/projects/davinci/explainability_poster.jpg"
               autoPlay
               muted
               loop
