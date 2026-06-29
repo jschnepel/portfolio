@@ -351,19 +351,6 @@ export function ResumeClient() {
         it simpler.
       </p>
       <div className="flex items-center gap-4 flex-wrap mb-16">
-        <a
-          href="/JoeySchnepelResume.pdf"
-          download
-          className="inline-flex items-center gap-2.5 font-[family-name:var(--font-share-tech-mono)] text-[11px] uppercase tracking-[1.5px] px-6 py-3 transition-all duration-300 hover:border-white hover:text-white rounded"
-          style={{ border: "0.5px solid rgba(255,255,255,0.15)", color: "#999" }}
-        >
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-            <polyline points="7 10 12 15 17 10" />
-            <line x1="12" y1="15" x2="12" y2="3" />
-          </svg>
-          Download PDF
-        </a>
         <span
           className="inline-flex items-center gap-1.5 font-[family-name:var(--font-share-tech-mono)] text-[10px] uppercase tracking-[1.5px] px-3.5 py-2 rounded"
           style={{ color: "#00E5A0", background: "rgba(0,229,160,0.06)", border: "0.5px solid rgba(0,229,160,0.18)" }}

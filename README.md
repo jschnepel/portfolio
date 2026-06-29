@@ -36,4 +36,3 @@ Sixteen years coaching club soccer. A lot of how I approach building software (r
 - **LinkedIn:** [linkedin.com/in/joey-schnepel](https://linkedin.com/in/joey-schnepel)
 - **GitHub:** [github.com/jschnepel](https://github.com/jschnepel)
 - **Portfolio:** [jschnepel.github.io/portfolio](https://jschnepel.github.io/portfolio)
-- **Resume:** [JoeySchnepelResume.pdf](https://github.com/jschnepel/portfolio/blob/main/JoeySchnepelResume.pdf)
