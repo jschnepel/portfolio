@@ -1,0 +1,29 @@
+---
+title: "Building a RAG system in a restricted corporate environment"
+date: "2026.01"
+tags: ["AI", "enterprise", "RAG"]
+thumbnail: "/thumbnails/blog/rag-restricted-environment.svg"
+summary: "Air-gapped networks, strict governance, no external APIs. Building retrieval that works inside a corporate boundary takes a different playbook."
+---
+
+Building AI systems in a corporate environment with air-gapped networks, strict data governance, and no access to external APIs requires a fundamentally different approach than the typical tutorial suggests.
+
+## The constraints
+
+No internet access from the deployment target. No cloud APIs. All data must stay within the corporate boundary. The LLM must run locally. The vector store must be self-hosted. And it all needs to work on the hardware that's already provisioned.
+
+## The stack
+
+I landed on a quantized open-source model running on local GPU infrastructure, ChromaDB for vector storage, and a custom ingestion pipeline built with LangChain. The entire system runs in Docker containers orchestrated with internal tooling. No Kubernetes, no cloud, no external dependencies.
+
+## Lessons learned
+
+**Chunking strategy matters more than model choice.** I spent weeks tuning the model before realizing that my document chunking was destroying context. Switching to semantic chunking with overlap improved retrieval quality more than any model swap.
+
+**Evaluation is hard without ground truth.** In a restricted environment, you can't easily use external evaluation services. I built a lightweight eval framework using domain expert annotations and automated relevance scoring.
+
+**Keep it simple.** The temptation to add reranking, query expansion, and multi-hop retrieval is strong. I shipped with basic RAG and iterated. The simpler system was easier to debug, explain to stakeholders, and maintain.
+
+## The result
+
+The system now serves internal engineering teams, answering questions about manufacturing processes, internal documentation, and SOPs. Response quality got good enough that adoption happened on its own. That's the validation that actually counts.

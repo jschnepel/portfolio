@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#0D0F12"/>
+  <!-- Subtle background grid -->
+  <g stroke="#1A1D22" stroke-width="0.5">
+    <line x1="0" y1="75" x2="800" y2="75"/>
+    <line x1="0" y1="150" x2="800" y2="150"/>
+    <line x1="0" y1="225" x2="800" y2="225"/>
+    <line x1="0" y1="300" x2="800" y2="300"/>
+    <line x1="0" y1="375" x2="800" y2="375"/>
+    <line x1="133" y1="0" x2="133" y2="450"/>
+    <line x1="266" y1="0" x2="266" y2="450"/>
+    <line x1="400" y1="0" x2="400" y2="450"/>
+    <line x1="533" y1="0" x2="533" y2="450"/>
+    <line x1="666" y1="0" x2="666" y2="450"/>
+  </g>
+  <!-- System A: circle with arrows -->
+  <circle cx="310" cy="225" r="60" fill="none" stroke="#FF6B4A" stroke-width="1.2" opacity="0.4"/>
+  <!-- Arrows circling inside system A -->
+  <g stroke="#FF6B4A" stroke-width="1" opacity="0.6" fill="none">
+    <path d="M290,195 L310,185 L330,195"/>
+    <polyline points="326,193 330,195 326,199"/>
+    <path d="M340,210 L350,230 L340,250"/>
+    <polyline points="342,246 340,250 336,248"/>
+    <path d="M325,260 L310,268 L290,260"/>
+    <polyline points="294,262 290,260 294,256"/>
+    <path d="M278,245 L268,225 L278,205"/>
+    <polyline points="276,209 278,205 282,207"/>
+  </g>
+  <!-- System B: circle with arrows -->
+  <circle cx="490" cy="225" r="60" fill="none" stroke="#FF6B4A" stroke-width="1.2" opacity="0.4"/>
+  <!-- Arrows circling inside system B -->
+  <g stroke="#FF6B4A" stroke-width="1" opacity="0.6" fill="none">
+    <path d="M470,195 L490,185 L510,195"/>
+    <polyline points="506,193 510,195 506,199"/>
+    <path d="M520,210 L530,230 L520,250"/>
+    <polyline points="522,246 520,250 516,248"/>
+    <path d="M505,260 L490,268 L470,260"/>
+    <polyline points="474,262 470,260 474,256"/>
+    <path d="M458,245 L448,225 L458,205"/>
+    <polyline points="456,209 458,205 462,207"/>
+  </g>
+  <!-- Overlap region — intersection highlight -->
+  <ellipse cx="400" cy="225" rx="28" ry="50" fill="#FF6B4A" opacity="0.06"/>
+  <!-- Connecting bridge lines between systems -->
+  <g stroke="#FF6B4A" stroke-width="0.8" opacity="0.35">
+    <line x1="370" y1="210" x2="430" y2="210"/>
+    <line x1="370" y1="225" x2="430" y2="225"/>
+    <line x1="370" y1="240" x2="430" y2="240"/>
+  </g>
+  <!-- Center dot -->
+  <circle cx="400" cy="225" r="3" fill="#FF6B4A" opacity="0.7"/>
+</svg>

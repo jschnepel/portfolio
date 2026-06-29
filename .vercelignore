@@ -1,0 +1,27 @@
+# Patterns are root-anchored (leading /) so public/ assets are NOT affected.
+
+# Legacy static site (superseded by the Next.js app)
+/index.html
+/brick-mosaic.html
+/styles.css
+/script.js
+
+# Stray root media not served by the app (the served copies live in public/)
+/4cb64a16-df9a-4db7-8633-cd0dd0dbe2fe.png
+/Jaeger.jpg
+/jaeger2.jpg
+/jaeger3.jpg
+/JoeySchnepelResume.pdf
+
+# Dev/audit artifacts
+/screenshots/
+/.playwright-mcp/
+/out/
+/docs/
+
+# DaVinci source docs (media is copied into public/)
+/projects/
+*.zip
+
+# Private personal docs (never deploy)
+/private/

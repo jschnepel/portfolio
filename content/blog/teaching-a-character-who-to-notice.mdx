@@ -1,0 +1,56 @@
+---
+title: "Teaching a character who to notice"
+date: "2026.06"
+tags: ["AI", "robotics", "perception"]
+thumbnail: "/projects/davinci/hero_corridor.png"
+summary: "Most digital characters broadcast at everyone. This one picks the single person most open to a moment, opens on something specific about them, and can explain why."
+---
+
+Most digital characters run a script. Walk up to the one I'm building and the first thing it does is notice something specific about you, your red hat, the camera around your neck, a kid's toy lightsaber, and it opens on that, in persona. The bet behind the whole project is that being noticed specifically, real perception rather than generic friendliness, is what makes a character feel alive.
+
+## The hard part isn't the face
+
+It's the judgment. Out of everyone in view, who is actually open to a moment, and what do I say to them? A great host reads a room: they pick the right person and the right opening, and they don't waste a line on someone walking away. That's the behavior I'm trying to make repeatable.
+
+The perception layer runs at about 26 FPS on a single consumer GPU, fusing open-vocabulary detection (YOLO-World), multi-person tracking (ByteTrack), and gaze plus head orientation (L2CS-Net) into one real-time read of the space.
+
+![Choosing who to engage among guests](/projects/davinci/hero_corridor.png "Three guests, one choice. The system commits to one person and the panel shows who it passed over and why.")
+
+## Deciding who is open
+
+Once the scene is parsed, every person gets a score for how open they are to a moment, right now. Gaze carries the most weight: a graded, directional sense of whether they are looking at the character or past it. Then whether their torso is actually facing in, how close they are, and how distinctive they are to comment on.
+
+```python
+def engagement_score(person, frame):
+    # higher = more open to a moment, right now
+    gaze = looking_at_camera(person.head_pose)   # graded 0..1, not a binary
+    facing = 1.0 if person.torso_facing_camera else 0.4
+    proximity = inverse_distance(person.bbox, frame)
+    novelty = open_vocab_salience(person.detections)
+    return 0.45 * gaze + 0.25 * facing + 0.20 * proximity + 0.10 * novelty
+
+target = max(people, key=lambda p: engagement_score(p, frame))
+
+if engagement_score(target, frame) < ENGAGE_THRESHOLD:
+    behavior = "bid_for_attention"   # earn the glance first
+else:
+    behavior = "engage"             # open on their specific detail
+```
+
+![Reading a guest's gaze](/projects/davinci/hero_gaze.png "Reading each guest's gaze and head orientation in real time, graded rather than binary.")
+
+The weights are the interesting part, and the part I keep tuning. Gaze dominates because presence is mostly about attention, not proximity. Someone standing right next to the screen but looking away is less open than someone a few feet back, locked in.
+
+## Earning the glance
+
+The most human touch is what happens when the best candidate still isn't quite looking. The character doesn't barge in. It throws a catchy, respectful, in-persona bid, "you there, with that blue scarf, yes, you, your eyes are missing something marvelous," and only fully engages once it has earned the glance. Refusing to launch a full interaction at someone who hasn't opted in is what keeps it from feeling like a kiosk.
+
+## Every decision on the record
+
+A character staged for guests has to be trustworthy and tunable, so nothing is a black box. The system logs every choice: who it engaged, for how long, and exactly which factors drove the score. When it passes someone over, the panel says why. That makes the behavior debuggable for me and explainable to the people deciding whether to put it in front of a crowd.
+
+![Explainability dashboard](/projects/davinci/dashboard.png "The dashboard logs every engagement decision and the factors that drove it.")
+
+## What's next
+
+The engine that does the noticing is built and running today. Next is the expressive talking face, a richer in-character voice, and the affect read that lets the character sense how a guest is responding and adapt. The persona is the first host; the perception and decision engine is the product.

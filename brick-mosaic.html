@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brick Mosaic | Joey Schnepel</title>
+    <title>PixelBrix | Joey Schnepel</title>
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Brick Mosaic - Image-to-LEGO mosaic converter with build instructions and block counts by Joey Schnepel.">
-    <meta name="keywords" content="Brick Mosaic, LEGO, Python, Image Processing, Joey Schnepel">
+    <meta name="description" content="PixelBrix - Full-stack web application for converting images to LEGO mosaics with admin dashboard and public gallery by Joey Schnepel.">
+    <meta name="keywords" content="PixelBrix, LEGO, Django, React, Full-Stack, Image Processing, Joey Schnepel">
     <meta name="author" content="Joey Schnepel">
 
     <!-- Favicon -->
@@ -37,10 +37,10 @@
     <main id="main-content">
     <section id="overview" class="hero-section">
         <div class="hero-content">
-            <h1 class="hero-name">Brick Mosaic</h1>
-            <h2 class="hero-title">Image-to-LEGO Mosaic Converter</h2>
+            <h1 class="hero-name">PixelBrix</h1>
+            <h2 class="hero-title">Full-Stack LEGO Mosaic Generator</h2>
             <p class="hero-tagline" style="margin-bottom: 2rem;">
-                Analyze and break down images into mosaics with step-by-step instructions and block counts to build with LEGO bricks.
+                A web application that transforms images into 48×48 LEGO mosaics with multiple color palettes, admin dashboard, and public gallery.
             </p>
             <div class="hero-ctas">
                 <a href="#github" class="glass-button">
@@ -61,9 +61,9 @@
         <div class="container">
             <h2 class="section-title">Project Overview</h2>
             <div class="about-content glass-card">
-                <p><strong>Brick Mosaic</strong> is an intelligent image processing application that transforms any image into a buildable LEGO mosaic. The tool analyzes input images, optimizes color palettes to match available LEGO brick colors, and generates detailed build instructions including brick counts and placement guides.</p>
-                <p>This project combines computer vision, color theory, and algorithmic optimization to create accurate and aesthetically pleasing LEGO mosaics. Whether you're recreating a photo, designing custom art, or planning a large-scale LEGO build, Brick Mosaic provides the blueprint.</p>
-                <p>The application outputs comprehensive build data including brick quantities by color, layer-by-layer instructions, and cost estimates for purchasing required pieces.</p>
+                <p><strong>PixelBrix</strong> is a full-stack web application developed as my capstone project that converts uploaded images into 48×48 LEGO-style mosaics. Users can choose from multiple color palettes (full color, grayscale, warm tones, cool tones, or earth tones) to create unique mosaic designs complete with brick counts for building with real LEGO pieces.</p>
+                <p>The application features a comprehensive admin dashboard with JWT authentication, providing real-time usage statistics, daily analytics, and session management capabilities. The public gallery allows users to share their creations with descriptions and search functionality, while maintaining privacy controls for individual sessions.</p>
+                <p>Built with modern web technologies, PixelBrix demonstrates full-stack development skills including RESTful API design, image processing algorithms, user authentication, data visualization, and containerized deployment using Docker.</p>
             </div>
         </div>
     </section>
@@ -74,28 +74,78 @@
             <h2 class="section-title">Key Features</h2>
             <div class="skill-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
                 <div class="glass-card" style="padding: 2rem;">
-                    <h3 style="color: var(--accent-color); margin-bottom: 1rem; font-size: 1.25rem;">📸 Image Analysis</h3>
-                    <p style="color: var(--text-secondary);">Upload any image and automatically analyze it for mosaic conversion with customizable resolution settings.</p>
+                    <h3 style="color: var(--accent-color); margin-bottom: 1rem; font-size: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                        Image Upload & Processing
+                    </h3>
+                    <p style="color: var(--text-secondary);">Upload JPG/PNG images up to 5MB and convert them to 48×48 LEGO mosaics using Pillow image processing.</p>
                 </div>
                 <div class="glass-card" style="padding: 2rem;">
-                    <h3 style="color: var(--accent-color); margin-bottom: 1rem; font-size: 1.25rem;">🎨 Color Optimization</h3>
-                    <p style="color: var(--text-secondary);">Intelligent color matching algorithm maps image pixels to available LEGO brick colors for accurate reproduction.</p>
+                    <h3 style="color: var(--accent-color); margin-bottom: 1rem; font-size: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="13.5" cy="6.5" r=".5"></circle>
+                            <circle cx="17.5" cy="10.5" r=".5"></circle>
+                            <circle cx="8.5" cy="7.5" r=".5"></circle>
+                            <circle cx="6.5" cy="12.5" r=".5"></circle>
+                            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path>
+                        </svg>
+                        Multiple Color Palettes
+                    </h3>
+                    <p style="color: var(--text-secondary);">Choose from 5 curated palettes: Full Color, Grayscale, Warm Tones, Cool Tones, and Earth Tones for diverse artistic styles.</p>
                 </div>
                 <div class="glass-card" style="padding: 2rem;">
-                    <h3 style="color: var(--accent-color); margin-bottom: 1rem; font-size: 1.25rem;">📋 Build Instructions</h3>
-                    <p style="color: var(--text-secondary);">Generate detailed step-by-step instructions with layer-by-layer placement guides.</p>
+                    <h3 style="color: var(--accent-color); margin-bottom: 1rem; font-size: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                        Brick Count Analysis
+                    </h3>
+                    <p style="color: var(--text-secondary);">Automatic calculation of required LEGO bricks by color with before/after image comparison.</p>
                 </div>
                 <div class="glass-card" style="padding: 2rem;">
-                    <h3 style="color: var(--accent-color); margin-bottom: 1rem; font-size: 1.25rem;">🧮 Block Count</h3>
-                    <p style="color: var(--text-secondary);">Comprehensive inventory of required bricks by color and size with cost estimation.</p>
+                    <h3 style="color: var(--accent-color); margin-bottom: 1rem; font-size: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 3v18h18"></path>
+                            <path d="M18 17V9"></path>
+                            <path d="M13 17V5"></path>
+                            <path d="M8 17v-3"></path>
+                        </svg>
+                        Admin Dashboard
+                    </h3>
+                    <p style="color: var(--text-secondary);">JWT-authenticated admin panel with real-time stats, daily usage charts, palette analytics, and session management.</p>
                 </div>
                 <div class="glass-card" style="padding: 2rem;">
-                    <h3 style="color: var(--accent-color); margin-bottom: 1rem; font-size: 1.25rem;">🖼️ Preview Generation</h3>
-                    <p style="color: var(--text-secondary);">Visual preview of final mosaic result before starting your build.</p>
+                    <h3 style="color: var(--accent-color); margin-bottom: 1rem; font-size: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <circle cx="12" cy="12" r="4"></circle>
+                            <line x1="21.17" y1="8" x2="12" y2="8"></line>
+                            <line x1="3.95" y1="6.06" x2="8.54" y2="14"></line>
+                            <line x1="10.88" y1="21.94" x2="15.46" y2="14"></line>
+                        </svg>
+                        Public Gallery
+                    </h3>
+                    <p style="color: var(--text-secondary);">Share creations publicly with descriptions, browse community mosaics, and search by keywords or palette.</p>
                 </div>
                 <div class="glass-card" style="padding: 2rem;">
-                    <h3 style="color: var(--accent-color); margin-bottom: 1rem; font-size: 1.25rem;">💾 Export Options</h3>
-                    <p style="color: var(--text-secondary);">Export instructions as PDF, CSV brick lists, and printable build guides.</p>
+                    <h3 style="color: var(--accent-color); margin-bottom: 1rem; font-size: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 20h.01"></path>
+                            <path d="M7 20v-4"></path>
+                            <path d="M12 20v-8"></path>
+                            <path d="M17 20V8"></path>
+                            <path d="M22 4v16"></path>
+                        </svg>
+                        Docker Deployment
+                    </h3>
+                    <p style="color: var(--text-secondary);">Containerized architecture with docker-compose for easy deployment and scalability.</p>
                 </div>
             </div>
         </div>
@@ -107,36 +157,83 @@
             <h2 class="section-title">Technology Stack</h2>
 
             <div class="skill-category">
-                <h4 class="category-name">Core Technologies</h4>
-                <div class="experience-item glass-card" style="margin-bottom: 1.5rem;">
-                    <div class="experience-bullets" style="margin-left: 0;">
-                        <li><strong>Python</strong> - Core programming language for image processing and algorithm implementation</li>
-                        <li><strong>PIL/Pillow</strong> - Image manipulation and processing library</li>
-                        <li><strong>NumPy</strong> - Efficient array operations and mathematical computations</li>
-                        <li><strong>OpenCV</strong> - Advanced computer vision operations</li>
+                <h4 class="category-name">Backend</h4>
+                <div class="skill-grid">
+                    <div class="skill-item glass-card">
+                        <img loading="lazy" src="https://cdn.simpleicons.org/django/092E20" alt="Django" />
+                        <span>Django</span>
+                    </div>
+                    <div class="skill-item glass-card">
+                        <img loading="lazy" src="https://cdn.simpleicons.org/fastapi/009688" alt="REST API" />
+                        <span>REST API</span>
+                    </div>
+                    <div class="skill-item glass-card">
+                        <img loading="lazy" src="assets/skills/python.svg" alt="Python" />
+                        <span>Python</span>
+                    </div>
+                    <div class="skill-item glass-card">
+                        <img loading="lazy" src="https://cdn.simpleicons.org/sqlite/003B57" alt="SQLite" />
+                        <span>SQLite</span>
+                    </div>
+                    <div class="skill-item glass-card">
+                        <img loading="lazy" src="https://cdn.simpleicons.org/gunicorn/499848" alt="Gunicorn" />
+                        <span>Gunicorn</span>
+                    </div>
+                    <div class="skill-item glass-card">
+                        <img loading="lazy" src="https://cdn.simpleicons.org/jsonwebtokens/000000" alt="JWT" />
+                        <span>JWT</span>
                     </div>
                 </div>
             </div>
 
             <div class="skill-category">
-                <h4 class="category-name">Algorithms & Techniques</h4>
-                <div class="experience-item glass-card" style="margin-bottom: 1.5rem;">
-                    <div class="experience-bullets" style="margin-left: 0;">
-                        <li><strong>Color Quantization</strong> - K-means clustering for palette reduction</li>
-                        <li><strong>Dithering</strong> - Floyd-Steinberg algorithm for improved visual quality</li>
-                        <li><strong>Color Space Conversion</strong> - RGB to LAB color space for perceptual accuracy</li>
-                        <li><strong>Nearest Neighbor Search</strong> - Efficient color matching to LEGO palette</li>
+                <h4 class="category-name">Frontend</h4>
+                <div class="skill-grid">
+                    <div class="skill-item glass-card">
+                        <img loading="lazy" src="assets/skills/react.png" alt="React" />
+                        <span>React</span>
+                    </div>
+                    <div class="skill-item glass-card">
+                        <img loading="lazy" src="https://cdn.simpleicons.org/vite/646CFF" alt="Vite" />
+                        <span>Vite</span>
+                    </div>
+                    <div class="skill-item glass-card">
+                        <img loading="lazy" src="https://cdn.simpleicons.org/tailwindcss/06B6D4" alt="Tailwind CSS" />
+                        <span>Tailwind CSS</span>
+                    </div>
+                    <div class="skill-item glass-card">
+                        <img loading="lazy" src="assets/skills/javascript.svg" alt="JavaScript" />
+                        <span>JavaScript</span>
+                    </div>
+                    <div class="skill-item glass-card">
+                        <img loading="lazy" src="https://cdn.simpleicons.org/axios/5A29E4" alt="Axios" />
+                        <span>Axios</span>
+                    </div>
+                    <div class="skill-item glass-card">
+                        <img loading="lazy" src="https://cdn.simpleicons.org/chartdotjs/FF6384" alt="Charts" />
+                        <span>Recharts</span>
                     </div>
                 </div>
             </div>
 
             <div class="skill-category">
-                <h4 class="category-name">Output & Export</h4>
-                <div class="experience-item glass-card">
-                    <div class="experience-bullets" style="margin-left: 0;">
-                        <li><strong>ReportLab</strong> - PDF generation for printable instructions</li>
-                        <li><strong>Matplotlib</strong> - Visualization of mosaic previews and color distributions</li>
-                        <li><strong>CSV Export</strong> - Brick inventory lists compatible with BrickLink and LEGO Pick-a-Brick</li>
+                <h4 class="category-name">DevOps & Deployment</h4>
+                <div class="skill-grid">
+                    <div class="skill-item glass-card">
+                        <img loading="lazy" src="assets/skills/docker.svg" alt="Docker" />
+                        <span>Docker</span>
+                    </div>
+                    <div class="skill-item glass-card">
+                        <img loading="lazy" src="https://cdn.simpleicons.org/docker/2496ED" alt="docker-compose" />
+                        <span>docker-compose</span>
+                    </div>
+                    <div class="skill-item glass-card">
+                        <img loading="lazy" src="assets/skills/git.svg" alt="Git" />
+                        <span>Git</span>
+                    </div>
+                    <div class="skill-item glass-card">
+                        <img loading="lazy" src="https://cdn.simpleicons.org/nginx/009639" alt="NGINX" />
+                        <span>NGINX</span>
                     </div>
                 </div>
             </div>
@@ -148,7 +245,7 @@
         <div class="container">
             <h2 class="section-title">Source Code & Resources</h2>
             <div class="contact-content glass-card">
-                <p>This project is open source and available on GitHub. Feel free to explore the code, submit issues, or contribute to the project.</p>
+                <p>PixelBrix was developed as my capstone project for my Master's degree in Software Engineering. The source code demonstrates full-stack development practices, RESTful API design, authentication, and Docker deployment.</p>
                 <div class="contact-links">
                     <a href="#" class="contact-link glass-button" style="padding: 1rem 2rem;">
                         <svg width="24" height="24" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -158,7 +255,7 @@
                     </a>
                 </div>
                 <p style="margin-top: 2rem; font-size: 0.95rem; color: var(--text-secondary);">
-                    <strong>Note:</strong> GitHub repository link will be added once the project is published.
+                    <strong>Features Showcase:</strong> Multiple color palettes, JWT authentication, admin analytics dashboard, public gallery with search, Docker containerization, and RESTful API design.
                 </p>
             </div>
         </div>

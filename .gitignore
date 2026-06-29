@@ -39,8 +39,25 @@ yarn-error.log*
 dist/
 build/
 node_modules/
+.next/
+out/
 
 # Backup files
 *.bak
 *.backup
 .claude/
+
+.vercel
+
+# Private personal docs
+private/
+
+# Next.js generated
+next-env.d.ts
+tsconfig.tsbuildinfo
+
+# Test / dev artifacts (keep out of the public repo)
+.playwright-mcp/
+screenshots/
+*.zip
+4cb64a16-df9a-4db7-8633-cd0dd0dbe2fe.png

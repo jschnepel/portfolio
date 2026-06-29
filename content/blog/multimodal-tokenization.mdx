@@ -1,0 +1,58 @@
+---
+title: "How efficient multimodal systems handle many streams at once"
+date: "2026.04"
+tags: ["AI", "multimodal", "edge", "research"]
+thumbnail: "/thumbnails/blog/multimodal-tokenization.svg"
+summary: "A study of how the best efficient multimodal systems, from Perceiver to MobileVLM, fuse vision, audio, and more without melting an edge device. They all shrink the token budget, but each does it in a different place."
+---
+
+For the robotics work I am moving toward, I keep hitting the same wall: how do you give a machine several streams of sense at once, vision, audio, depth, motion, and have it react in real time on hardware small enough to sit on a robot? Rather than guess, I went and studied how the systems that are already good at this actually do it. These are my notes, with the papers attached.
+
+## Why multiple streams get expensive
+
+Modern perception runs on the transformer, and attention compares every piece of input against every other piece. That cost grows with the square of the number of tokens. A single camera frame is already hundreds of tokens. Add audio, depth, and a second camera and the token count, and the latency, climbs fast. On a phone or an NVIDIA Jetson, that is the entire problem. So the interesting question is not "which model is most accurate," it is "how do these systems keep the token count under control while still fusing everything."
+
+After reading the main papers, the surprising thing is how much they agree on the answer and how differently they reach it. Almost all of them shrink each stream down to a small, fixed budget of tokens before the expensive part runs. Where they differ is *where* they compress and *where* they fuse.
+
+## Five ways the good systems do it
+
+### Bind everything into one shared space — ImageBind
+Meta's ImageBind learns a single embedding space across six modalities (image, text, audio, depth, thermal, and IMU), and remarkably it only needs each modality paired with images to bind them all together [1]. Each stream gets its own encoder, and fusion is just comparing vectors in the shared space. It is cheap because the encoders are independent and the streams never have to attend to each other token by token. The tradeoff is that you get roughly one vector per stream, which is excellent for retrieval and matching and less suited to fine-grained reasoning.
+
+### Squeeze any input into a small latent array — Perceiver IO
+DeepMind's Perceiver line is the most direct answer to "arbitrary streams." It uses cross-attention to map a big, mixed input of any shape or modality into a small fixed set of latent vectors, then does all the heavy processing on that small set. The cost of the deep network is decoupled from the size of the input, so it scales linearly instead of quadratically, and you can learn one query per modality so the network knows which stream is which [2]. This is the idea I find most elegant: stop letting the input size dictate the compute.
+
+### Learn a handful of query tokens — BLIP-2 and Flamingo
+BLIP-2 puts a lightweight Querying Transformer, the Q-Former, between a frozen image encoder and a frozen language model. It uses just 32 learned query tokens to pull a fixed-size summary out of the image, no matter the resolution, standing in for the 257 tokens a ViT-L would otherwise hand over [3]. Flamingo does the same kind of trick with a Perceiver Resampler that shrinks a variable number of visual features down to a small fixed set, then injects them into a frozen language model through gated cross-attention so the new signal does not destabilize the pretrained weights [4]. Both treat compression as a learned bottleneck: keep only the tokens that earn their place.
+
+### Merge redundant tokens on the fly — Token Merging
+Token Merging (ToMe) takes an existing vision transformer and, between layers, merges the most similar tokens, with no retraining required. Because it merges redundant foreground tokens rather than only dropping background ones, it cuts a lot: two to three times the throughput for a fraction of a percent of accuracy, and the same idea works on images, video, and audio [5]. It is a good reminder that a lot of the tokens in any stream are saying the same thing.
+
+### Compress right at the edge seam — MobileVLM
+MobileVLM is the one built explicitly for edge devices, and it is the most relevant to robotics. Its lightweight downsample projector sits between the vision encoder and a small on-device language model and throws away three quarters of the visual tokens with a strided convolution; the follow-up version cut the visual prompt from 576 tokens to 144 with no real loss in accuracy [6]. They report inference numbers on an NVIDIA Jetson Orin, the same class of board I am targeting, which makes it a reality check rather than a lab curiosity [6].
+
+## The pattern underneath all of them
+
+Lay them side by side and the through-line is obvious: the token count is the budget, and every one of these systems spends most of its cleverness getting that count down before the quadratic cost kicks in. They just pick different places to do it.
+
+| System | How it handles streams | The efficiency lever |
+|---|---|---|
+| ImageBind | A separate encoder per modality, compared in one shared space | One vector per stream, no token-level cross-attention |
+| Perceiver IO | Cross-attends any input into a small fixed latent array | Compute decoupled from input size |
+| BLIP-2 (Q-Former) | 32 learned queries summarize the image for a frozen LLM | Fixed token budget, independent of resolution |
+| Flamingo | Perceiver Resampler to a small set, then gated cross-attention | Compress, then inject without destabilizing |
+| ToMe | Merges similar tokens between layers, no retraining | 2 to 3x throughput, tiny accuracy cost |
+| MobileVLM | Strided-conv projector drops most visual tokens on-device | 576 to 144 tokens, measured on Jetson Orin |
+
+## What I am taking from it
+
+The lesson I keep underlining for my own perception work is that fusing more streams is not about a bigger model, it is about a stricter token budget and being deliberate about which signal earns a token. A raised eyebrow or a sudden sound deserves more resolution than a static wall. That is exactly the kind of attention budgeting a robot needs when it is reading a room in real time on a board that also has to run balance and motor control. None of this is my invention. It is what the field has already worked out, and writing it down is how I stop relearning it.
+
+## Sources
+
+1. Girdhar et al. *ImageBind: One Embedding Space To Bind Them All.* CVPR 2023. [arXiv:2305.05665](https://arxiv.org/abs/2305.05665)
+2. Jaegle et al. *Perceiver IO: A General Architecture for Structured Inputs and Outputs.* 2021. [arXiv:2107.14795](https://arxiv.org/abs/2107.14795)
+3. Li et al. *BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models.* ICML 2023. [arXiv:2301.12597](https://arxiv.org/abs/2301.12597)
+4. Alayrac et al. *Flamingo: a Visual Language Model for Few-Shot Learning.* NeurIPS 2022. [arXiv:2204.14198](https://arxiv.org/abs/2204.14198)
+5. Bolya et al. *Token Merging: Your ViT But Faster.* ICLR 2023. [arXiv:2210.09461](https://arxiv.org/abs/2210.09461)
+6. Chu et al. *MobileVLM* and *MobileVLM V2.* 2023 and 2024. [arXiv:2312.16886](https://arxiv.org/abs/2312.16886), [arXiv:2402.03766](https://arxiv.org/abs/2402.03766)

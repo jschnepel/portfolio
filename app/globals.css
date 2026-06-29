@@ -1,0 +1,448 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0D0F12;
+  --color-surface: rgba(255, 255, 255, 0.02);
+  --color-surface-border: rgba(255, 255, 255, 0.05);
+  --color-text-primary: #FFFFFF;
+  --color-text-body: #CCCCCC;
+  --color-text-body-alt: #BBBBBB;
+  --color-text-secondary: #999999;
+  --color-text-muted: #6B6B6B;
+  --color-text-ghost: #7C7C7C;
+  --color-divider: rgba(255, 255, 255, 0.04);
+
+  --color-accent-robotics: #00E5A0;
+  --color-accent-ai: #4DA8FF;
+  --color-accent-platform: #F5C344;
+  --color-accent-coaching: #FF6B4A;
+
+  --font-heading: var(--font-chakra-petch);
+  --font-body: var(--font-barlow);
+  --font-mono: var(--font-share-tech-mono);
+}
+
+/* Base reset */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text-body);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+/* Noise texture overlay — increased to visible level */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Selection */
+::selection {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+/* ==========================================
+   FOCUS & ACCESSIBILITY
+   ========================================== */
+*:focus-visible {
+  outline: 1px solid rgba(255,255,255,0.3);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 1px solid rgba(77,168,255,0.6);
+  outline-offset: 2px;
+}
+
+/* ==========================================
+   REDUCED MOTION — kill all animations
+   ========================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .hero-stagger {
+    opacity: 1 !important;
+  }
+  .text-shimmer {
+    animation: none !important;
+    -webkit-text-fill-color: #FFF !important;
+  }
+}
+
+/* ==========================================
+   HERO SHIMMER — subtle white-gray sweep
+   ========================================== */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.text-shimmer {
+  background: linear-gradient(
+    110deg,
+    #FFFFFF 0%,
+    #FFFFFF 40%,
+    #CCCCCC 48%,
+    #EEEEEE 50%,
+    #CCCCCC 52%,
+    #FFFFFF 60%,
+    #FFFFFF 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 12s ease-in-out infinite;
+}
+
+/* ==========================================
+   SCROLL PROGRESS BAR
+   ========================================== */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 1px;
+  z-index: 200;
+  transform-origin: left;
+  transition: background-color 0.3s ease;
+  pointer-events: none;
+}
+
+/* ==========================================
+   PAGE TRANSITIONS — fast
+   ========================================== */
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-transition {
+  animation: pageIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ==========================================
+   SECTION LABELS — visible contrast
+   ========================================== */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: var(--color-text-ghost);
+  margin-bottom: 24px;
+}
+
+/* Page titles */
+.page-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(28px, 4vw, 40px);
+  color: #FFF;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.page-subtitle {
+  color: #777;
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 520px;
+  margin-bottom: 48px;
+}
+
+/* ==========================================
+   HERO LOAD CHOREOGRAPHY
+   ========================================== */
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-stagger {
+  opacity: 0;
+  animation: heroFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ==========================================
+   SCROLL REVEAL — faster
+   ========================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Divider */
+.divider {
+  height: 0.5px;
+  background: var(--color-divider);
+}
+
+/* ==========================================
+   DA VINCI — CHAPTER "BUILDING NOW" DOT
+   (reduced-motion rule above neutralizes this)
+   ========================================== */
+@keyframes davinciLive {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(77, 168, 255, 0.5); opacity: 1; }
+  50% { box-shadow: 0 0 0 4px rgba(77, 168, 255, 0); opacity: 0.65; }
+}
+
+.davinci-live {
+  animation: davinciLive 2s ease-in-out infinite;
+}
+
+/* ==========================================
+   SCROLLBAR
+   ========================================== */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+/* ==========================================
+   BLOG PROSE
+   ========================================== */
+.prose-custom {
+  color: #BBB;
+  font-size: 15px;
+  line-height: 1.85;
+  max-width: 680px;
+}
+
+.prose-custom h2 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 22px;
+  color: #FFF;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.3px;
+}
+
+.prose-custom h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 16px;
+  color: #DDD;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose-custom p {
+  margin-bottom: 1.5rem;
+}
+
+.prose-custom strong {
+  color: #FFF;
+  font-weight: 500;
+}
+
+.prose-custom code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: rgba(255,255,255,0.06);
+  padding: 2px 7px;
+  border-radius: 3px;
+  color: #DDD;
+  border: 0.5px solid rgba(255,255,255,0.08);
+}
+
+.prose-custom pre {
+  background: rgba(255,255,255,0.03);
+  border: 0.5px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+.prose-custom pre code {
+  background: none;
+  padding: 0;
+  border: none;
+}
+
+.prose-custom ul,
+.prose-custom ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.prose-custom li {
+  margin-bottom: 0.6rem;
+}
+
+.prose-custom a {
+  color: #4DA8FF;
+  text-decoration: none;
+  transition: color 0.3s;
+  border-bottom: 0.5px solid rgba(77,168,255,0.3);
+}
+
+.prose-custom a:hover {
+  color: #FFF;
+  border-bottom-color: rgba(255,255,255,0.3);
+}
+
+.prose-custom blockquote {
+  border-left: 2px solid rgba(255,255,255,0.08);
+  padding-left: 1.25rem;
+  color: #888;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+.prose-custom hr {
+  border: none;
+  height: 0.5px;
+  background: rgba(255,255,255,0.06);
+  margin: 3rem 0;
+}
+
+/* ==========================================
+   PROSE TABLES (GFM)
+   ========================================== */
+.prose-custom table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  font-size: 13px;
+}
+
+.prose-custom thead th {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #4DA8FF;
+  font-weight: 400;
+  padding: 0 1rem 0.6rem 0;
+  border-bottom: 0.5px solid rgba(255,255,255,0.1);
+}
+
+.prose-custom tbody td {
+  vertical-align: top;
+  padding: 0.7rem 1rem 0.7rem 0;
+  color: #AAA;
+  line-height: 1.6;
+  border-bottom: 0.5px solid rgba(255,255,255,0.05);
+}
+
+.prose-custom tbody td:first-child {
+  color: #E6E8EC;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ==========================================
+   CODE SYNTAX HIGHLIGHTING (rehype-highlight)
+   Tuned to the site's category accent palette.
+   ========================================== */
+.prose-custom pre code.hljs {
+  display: block;
+  background: none;
+  padding: 0;
+  font-size: 12.5px;
+  line-height: 1.7;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #5A5D65;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-built_in,
+.hljs-name,
+.hljs-tag {
+  color: #4DA8FF;
+}
+
+.hljs-string,
+.hljs-attr,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+  color: #00E5A0;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #F5C344;
+}
+
+.hljs-title,
+.hljs-title.function_,
+.hljs-section {
+  color: #E6E8EC;
+}
+
+.hljs-params {
+  color: #BBBBBB;
+}
+
+.hljs-attribute,
+.hljs-meta,
+.hljs-deletion {
+  color: #FF6B4A;
+}
+
+.hljs-emphasis { font-style: italic; }
+.hljs-strong { font-weight: 600; }
