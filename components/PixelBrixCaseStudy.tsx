@@ -273,7 +273,7 @@ export function PixelBrixCaseStudy() {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {built.map((b, i) => (
-            <BentoTile key={b.title} delay={0.04 * (i + 1)} className={b.featured ? "md:col-span-2" : ""}>
+            <BentoTile key={b.title} delay={0.04 * (i + 1)} className="h-full">
               <div className="flex items-start gap-4">
                 <span
                   className="font-[family-name:var(--font-share-tech-mono)] text-[11px] mt-0.5 tabular-nums shrink-0"
@@ -308,40 +308,38 @@ export function PixelBrixCaseStudy() {
         </ScrollReveal>
       </section>
 
-      {/* ── ENGINEERING + SPECS ── */}
-      <section className="mb-16 grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-10">
-        <div>
-          <SectionLabel>// engineering</SectionLabel>
-          <div className="space-y-4">
-            {engineering.map((e, i) => (
-              <ScrollReveal key={e.title} delay={0.05 * (i + 1)}>
-                <div className="pb-4" style={{ borderBottom: "0.5px solid rgba(255,255,255,0.05)" }}>
-                  <h3 className="font-[family-name:var(--font-chakra-petch)] font-bold text-[15px] text-white mb-1.5">
-                    {e.title}
-                  </h3>
-                  <p className="text-[#888] text-[13px] leading-[1.75]">{e.body}</p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+      {/* ── ENGINEERING ── */}
+      <section className="mb-16">
+        <SectionLabel>// engineering</SectionLabel>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {engineering.map((e, i) => (
+            <BentoTile key={e.title} delay={0.05 * (i + 1)} className="h-full">
+              <h3 className="font-[family-name:var(--font-chakra-petch)] font-bold text-[15px] text-white mb-2">
+                {e.title}
+              </h3>
+              <p className="text-[#888] text-[13px] leading-[1.75]">{e.body}</p>
+            </BentoTile>
+          ))}
         </div>
-        <div>
-          <SectionLabel>// specs</SectionLabel>
-          <div className="space-y-4">
-            {specs.map(([k, v], i) => (
-              <ScrollReveal key={k} delay={0.04 * (i + 1)}>
-                <div
-                  className="flex items-baseline justify-between gap-3 pb-3"
-                  style={{ borderBottom: "0.5px solid rgba(255,255,255,0.05)" }}
-                >
-                  <span className="font-[family-name:var(--font-share-tech-mono)] text-[10px] uppercase tracking-[1px] text-[#666]">
-                    {k}
-                  </span>
-                  <span className="text-[#CCC] text-[12.5px] text-right">{v}</span>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+      </section>
+
+      {/* ── SPECS ── */}
+      <section className="mb-16">
+        <SectionLabel>// specs</SectionLabel>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-5">
+          {specs.map(([k, v], i) => (
+            <ScrollReveal key={k} delay={0.04 * (i + 1)}>
+              <div
+                className="flex items-baseline justify-between gap-4 pb-3"
+                style={{ borderBottom: "0.5px solid rgba(255,255,255,0.05)" }}
+              >
+                <span className="font-[family-name:var(--font-share-tech-mono)] text-[10px] uppercase tracking-[1.5px] text-[#666]">
+                  {k}
+                </span>
+                <span className="text-[#CCC] text-[13px] text-right">{v}</span>
+              </div>
+            </ScrollReveal>
+          ))}
         </div>
       </section>
 
