@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { AwardQuote } from "@/components/AwardQuote";
 import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
@@ -127,6 +128,23 @@ export default function AboutPage() {
             </section>
           </ScrollReveal>
         ))}
+
+        {/* Recognition */}
+        <ScrollReveal>
+          <section className="mb-14">
+            <h2
+              className="font-[family-name:var(--font-share-tech-mono)] text-[11px] uppercase tracking-[2.5px] mb-5"
+              style={{ color: ACCENT }}
+            >
+              // recognition
+            </h2>
+            <p className="text-[#B6B8BD] text-[15px] leading-[1.9] mb-6">
+              The AI/ML master&apos;s is where the pivot became real. The model work behind Da Vinci
+              earned an Academic Award of Excellence, and the reviewer put it plainly:
+            </p>
+            <AwardQuote />
+          </section>
+        </ScrollReveal>
 
         {/* Closing CTA */}
         <ScrollReveal>

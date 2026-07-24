@@ -5,6 +5,7 @@ import Link from "next/link";
 import { BentoTile } from "./BentoTile";
 import { TechTag } from "./TechTag";
 import { ScrollReveal } from "./ScrollReveal";
+import { AwardQuote } from "./AwardQuote";
 import { Footer } from "./Footer";
 import { ACCENT, SectionLabel, ImageFrame } from "./davinci/shared";
 import { CHAPTERS, TEASERS } from "./davinci/chapters";
@@ -15,9 +16,9 @@ import { ChapterTeaser } from "./davinci/ChapterTeaser";
 
 const TAGS = [
   "Computer Vision",
-  "Open-Vocab Detection",
   "Gaze Estimation",
   "Multi-Person Tracking",
+  "Restraint Policy",
   "Explainable AI",
   "Real-Time",
 ];
@@ -117,7 +118,8 @@ export function DavinciCaseStudy() {
       </p>
       <p className="text-[#999] text-[15px] leading-[1.8] max-w-[620px] mb-6 italic">
         A character that doesn&apos;t just talk <span className="text-[#CCC]">at</span> you. It{" "}
-        <span style={{ color: ACCENT }}>notices</span> you.
+        <span style={{ color: ACCENT }}>notices</span> you, and has the restraint to know when not
+        to.
       </p>
 
       <div className="flex items-center gap-2.5 flex-wrap mb-5">
@@ -139,13 +141,20 @@ export function DavinciCaseStudy() {
 
       <ScrollReveal>
         <ImageFrame
-          src="/projects/davinci/hero_corridor.png"
-          alt="Da Vinci choosing who to engage among three guests in a corridor, with a panel explaining who it passed over and why"
+          src="/projects/davinci/dashboard.png"
+          alt="Analytics dashboard of the character's decisions: who it engaged, who it passed over, and the signals behind each call"
         />
         <p className="text-[#555] text-[12px] mt-3 font-[family-name:var(--font-share-tech-mono)]">
-          Three guests, one choice. It scores how open each person is, commits to one on a specific
-          visible detail, and the panel spells out who it passed over and why.
+          Every decision on the record: who it engaged, who it deliberately passed over, and which
+          signals drove each call. Nothing is a black box, &ldquo;why not her?&rdquo; has an answer.
         </p>
+      </ScrollReveal>
+
+      {/* ── AWARD ENDORSEMENT ── */}
+      <ScrollReveal>
+        <div className="mt-8 max-w-[620px]">
+          <AwardQuote variant="condensed" />
+        </div>
       </ScrollReveal>
 
       {/* ── ORIENT ── */}

@@ -3,6 +3,7 @@
 import React, { useState, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { ScrollReveal } from "./ScrollReveal";
+import { AwardQuote } from "./AwardQuote";
 import { TypewriterLabel } from "./TypewriterLabel";
 // ColorBleed removed from resume; keep it calm and scannable
 import { Footer } from "./Footer";
@@ -106,7 +107,7 @@ const skills: Record<string, string> = {
 };
 
 const education: { degree: string; school: string; logo: string; award?: string }[] = [
-  { degree: "M.S. Computer Science, AI/ML", school: "Western Governors University", logo: "/logos/wgu-logo.svg", award: "2× Academic Awards of Excellence" },
+  { degree: "M.S. Computer Science, AI/ML", school: "Western Governors University", logo: "/logos/wgu-logo.svg", award: "3× Academic Awards of Excellence" },
   { degree: "B.S. Software Engineering", school: "Western Governors University", logo: "/logos/wgu-logo.svg" },
   { degree: "Data Analytics Apprenticeship", school: "New Apprenticeship", logo: "" },
 ];
@@ -476,6 +477,14 @@ export function ResumeClient() {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* ── RECOGNITION ── */}
+      <div className="mb-16">
+        <TypewriterLabel text="// recognition" />
+        <ScrollReveal>
+          <AwardQuote variant="condensed" accent="#F5C344" />
+        </ScrollReveal>
       </div>
 
       <Footer />
