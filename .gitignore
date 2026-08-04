@@ -61,3 +61,26 @@ tsconfig.tsbuildinfo
 screenshots/
 *.zip
 4cb64a16-df9a-4db7-8633-cd0dd0dbe2fe.png
+
+# Non-consenting people media — NEVER commit (public repo). See projects/davinci/README.md redaction note.
+# Use the de-identified live_*.jpg frames instead. Recapture on consented/synthetic footage.
+public/projects/davinci/hero_bid.png
+public/projects/davinci/hero_corridor.png
+public/projects/davinci/hero_faces.png
+public/projects/davinci/hero_gaze.png
+public/projects/davinci/hero_openvocab.png
+public/projects/davinci/hero_speaking.png
+public/projects/davinci/hero_engage_3people.png
+public/projects/davinci/montage_states.png
+public/projects/davinci/explainability.mp4
+public/projects/davinci/explainability_1080p.mp4
+projects/davinci/media/hero_bid.png
+projects/davinci/media/hero_corridor.png
+projects/davinci/media/hero_faces.png
+projects/davinci/media/hero_gaze.png
+projects/davinci/media/hero_openvocab.png
+projects/davinci/media/hero_speaking.png
+projects/davinci/media/hero_engage_3people.png
+projects/davinci/media/montage_states.png
+projects/davinci/media/explainability.mp4
+projects/davinci/media/explainability_1080p.mp4
