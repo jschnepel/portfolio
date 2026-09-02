@@ -2,55 +2,61 @@
 title: "Teaching a character who to notice"
 date: "2026.06"
 tags: ["AI", "robotics", "perception"]
-thumbnail: "/projects/davinci/hero_corridor.png"
-summary: "Most digital characters broadcast at everyone. This one picks the single person most open to a moment, opens on something specific about them, and can explain why."
+thumbnail: "/projects/davinci/dashboard.png"
+summary: "Most digital characters broadcast at everyone. This one reads who is genuinely present, engages the single person for whom it's the right moment — or deliberately waits — and can explain every call."
 ---
 
-Most digital characters run a script. Walk up to the one I'm building and the first thing it does is notice something specific about you, your red hat, the camera around your neck, a kid's toy lightsaber, and it opens on that, in persona. The bet behind the whole project is that being noticed specifically, real perception rather than generic friendliness, is what makes a character feel alive.
+Most digital characters run a script. The naive "reactive" upgrade is worse in a real space: it greets whoever is nearest, which is a nuisance. The character I'm building does the harder, more human thing — it *chooses*. It reads who is genuinely present with it, engages the one person for whom it's actually the right moment, and, just as often, chooses to wait. The bet behind the whole project is that engagement feels alive when it's *earned and intentional*, not constant.
 
 ## The hard part isn't the face
 
-It's the judgment. Out of everyone in view, who is actually open to a moment, and what do I say to them? A great host reads a room: they pick the right person and the right opening, and they don't waste a line on someone walking away. That's the behavior I'm trying to make repeatable.
+It's the judgment, and the restraint. Out of everyone in view, who is genuinely open to a moment, is *now* the right time — or is the honest answer to wait? A great host reads a room: they engage the right person at the right moment and leave everyone else in peace. That's the behavior I'm trying to make repeatable.
 
-The perception layer runs at about 26 FPS on a single consumer GPU, fusing open-vocabulary detection (YOLO-World), multi-person tracking (ByteTrack), and gaze plus head orientation (L2CS-Net) into one real-time read of the space.
+The perception layer runs at about 26 FPS on a single consumer GPU, fusing person detection and multi-person tracking (YOLO11 + ByteTrack) with graded gaze and head orientation (L2CS-Net) into one real-time read of the space.
 
-![Choosing who to engage among guests](/projects/davinci/hero_corridor.png "Three guests, one choice. The system commits to one person and the panel shows who it passed over and why.")
+![Restraint vs. the greedy baseline](/projects/davinci/baseline_comparison.png "The restraint policy compared against an indiscriminate 'greet the nearest person' baseline.")
 
-## Deciding who is open
+## Deciding who is open — and when to hold back
 
-Once the scene is parsed, every person gets a score for how open they are to a moment, right now. Gaze carries the most weight: a graded, directional sense of whether they are looking at the character or past it. Then whether their torso is actually facing in, how close they are, and how distinctive they are to comment on.
+Once the scene is parsed, every person gets a score for how open they are to a moment, right now. Gaze carries the most weight: a graded, directional sense of whether they're looking at the character or past it. Then whether their torso is actually facing in, how close they are, and how long they've lingered.
+
+But a high score isn't enough on its own. The character commits only when *two* independent signals are both present — a genuine relevance signal and a social-license signal — and otherwise it waits.
 
 ```python
-def engagement_score(person, frame):
+def openness_score(person, frame):
     # higher = more open to a moment, right now
     gaze = looking_at_camera(person.head_pose)   # graded 0..1, not a binary
     facing = 1.0 if person.torso_facing_camera else 0.4
     proximity = inverse_distance(person.bbox, frame)
-    novelty = open_vocab_salience(person.detections)
-    return 0.45 * gaze + 0.25 * facing + 0.20 * proximity + 0.10 * novelty
+    dwell = normalized_dwell(person.track_id)     # have they lingered?
+    return 0.45 * gaze + 0.25 * facing + 0.15 * proximity + 0.15 * dwell
 
-target = max(people, key=lambda p: engagement_score(p, frame))
+target = max(people, key=lambda p: openness_score(p, frame))
 
-if engagement_score(target, frame) < ENGAGE_THRESHOLD:
-    behavior = "bid_for_attention"   # earn the glance first
+# restraint: engage at most one, and only when a relevance signal
+# AND a social-license signal are both present. otherwise, wait.
+if relevance(target) >= REL_GATE and social_license(target) >= LIC_GATE:
+    behavior = "engage"     # commit to this one person, in character
 else:
-    behavior = "engage"             # open on their specific detail
+    behavior = "wait"       # the honest call is to hold back
 ```
 
-![Reading a guest's gaze](/projects/davinci/hero_gaze.png "Reading each guest's gaze and head orientation in real time, graded rather than binary.")
+![Per-person openness over time](/projects/davinci/04_person_score_traces.png "Each person's openness score over time. The character commits only when one crosses the bar with social license.")
 
 The weights are the interesting part, and the part I keep tuning. Gaze dominates because presence is mostly about attention, not proximity. Someone standing right next to the screen but looking away is less open than someone a few feet back, locked in.
 
-## Earning the glance
+## Restraint is the point
 
-The most human touch is what happens when the best candidate still isn't quite looking. The character doesn't barge in. It throws a catchy, respectful, in-persona bid, "you there, with that blue scarf, yes, you, your eyes are missing something marvelous," and only fully engages once it has earned the glance. Refusing to launch a full interaction at someone who hasn't opted in is what keeps it from feeling like a kiosk.
+The temptation is to engage more. It's the wrong instinct. A character that talks at whoever is nearest is a greeter; the valuable, human behavior is holding back — engaging the one person for whom it's genuinely the right moment and respecting everyone else. So I measure the policy against an indiscriminate baseline that engages the nearest person every chance it gets, the "salesman," because restraint only means something if you can show what the greedy version would have done instead.
+
+When it does engage, what it says is drawn from authored, fact-checked lines grounded in Leonardo's own notebooks and the historical record — always about the shared craft, and never a remark about the person's appearance, face, or gaze.
 
 ## Every decision on the record
 
-A character staged for guests has to be trustworthy and tunable, so nothing is a black box. The system logs every choice: who it engaged, for how long, and exactly which factors drove the score. When it passes someone over, the panel says why. That makes the behavior debuggable for me and explainable to the people deciding whether to put it in front of a crowd.
+A character staged for guests has to be trustworthy and tunable, so nothing is a black box. The system logs every choice — who it engaged, who it deliberately passed over, for how long, and exactly which factors drove the score. When it holds back, the log says why. That makes the behavior debuggable for me and explainable to the people deciding whether to put it in front of a crowd. "Why not her?" has an answer.
 
-![Explainability dashboard](/projects/davinci/dashboard.png "The dashboard logs every engagement decision and the factors that drove it.")
+![Explainability dashboard](/projects/davinci/dashboard.png "The dashboard logs every engagement decision — and every restraint — and the factors that drove it.")
 
 ## What's next
 
-The engine that does the noticing is built and running today. Next is the expressive talking face, a richer in-character voice, and the affect read that lets the character sense how a guest is responding and adapt. The persona is the first host; the perception and decision engine is the product.
+The engine that does the judging is built and running today. Next is the measured selectivity result — the restraint policy versus the greedy baseline, on consented or synthetic footage — plus an expressive talking face, a richer in-character voice, and the affect read that lets the character sense how a guest is responding and adapt. The persona is the first host; the earned-engagement engine is the product.

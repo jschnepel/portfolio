@@ -3,7 +3,7 @@ import { ScrollReveal } from "../ScrollReveal";
 import { ACCENT, SectionLabel, PlaceholderFrame } from "./shared";
 
 const ARC = [
-  { num: "01", name: "The Mind", body: "a screen", role: "Perceives and decides who is open, and what to open on.", lit: true },
+  { num: "01", name: "The Mind", body: "a screen", role: "Perceives, then decides with restraint who to engage — or when to wait.", lit: true },
   { num: "02", name: "The Face", body: "a physical bust", role: "Reacts with a face: gaze, brow, and voice in persona.", lit: false },
   { num: "03", name: "The Bridge", body: "a simulator", role: "Expressive motion you can trust, sim to real.", lit: false },
   { num: "04", name: "The Body", body: "a robot", role: "Fully embodied, sharing the room with guests.", lit: false },
@@ -34,8 +34,9 @@ export function ChapterVision() {
         className="font-[family-name:var(--font-chakra-petch)] font-bold text-white leading-[1.35] max-w-[760px] mb-12 pl-5"
         style={{ fontSize: "clamp(20px, 2.6vw, 27px)", borderLeft: `2px solid ${ACCENT}` }}
       >
-        Being noticed <span style={{ color: ACCENT }}>specifically</span> is what makes a character
-        feel alive. Real perception, not generic friendliness.
+        Engagement feels alive when it is <span style={{ color: ACCENT }}>earned and
+        intentional</span>, not constant. A character that notices, engages with restraint, and can
+        prove why, reads as present — not as a greeter.
       </blockquote>
 
       {/* Concept anchor */}
@@ -50,14 +51,16 @@ export function ChapterVision() {
       <section className="mt-16 mb-14">
         <SectionLabel>// where the idea starts</SectionLabel>
         <p className="text-[#BBB] text-[15px] leading-[1.9] max-w-[680px]">
-          Walk up to most digital characters and they run a script. The bet behind this project is
-          narrower, and I think truer: a character feels alive the moment it notices something
-          specific about <span className="text-[#DDD]">you</span> (your red hat, the camera around
-          your neck, a kid&apos;s toy lightsaber) and opens on that, in persona. Not friendliness
-          aimed at everyone. Attention aimed at one person. That single shift, from broadcasting to{" "}
-          <span style={{ color: ACCENT }}>noticing</span>, is the whole idea. It&apos;s built for the
-          place that shift matters most: guests in a real space, a queue, an exhibit, a lobby, where
-          a character that reacts to this person, right now, turns a wait into a moment.
+          Walk up to most digital characters and they run a script. The naive &ldquo;reactive&rdquo;
+          version is worse in a real space: it greets whoever is nearest, which is a nuisance. The bet
+          behind this project is narrower, and I think truer: a character feels alive when it does the
+          harder, more human thing, it <span className="text-[#DDD]">chooses</span> — reading who is
+          genuinely present with it, engaging the one person for whom it is actually the right moment,
+          and, just as often, choosing to <span style={{ color: ACCENT }}>wait</span>. That single
+          shift, from broadcasting to earned, intentional engagement, is the whole idea. It&apos;s
+          built for the place it matters most: guests in a real space, a queue, an exhibit, a lobby,
+          where engaging the right person and leaving everyone else in peace is the difference between
+          presence and a nuisance.
         </p>
       </section>
 
@@ -68,8 +71,10 @@ export function ChapterVision() {
           The persona is Leonardo da Vinci on purpose. He was history&apos;s greatest{" "}
           <span className="text-[#DDD]">observer</span>, with notebooks full of how light falls, how
           the eye reads depth, how a face moves. So the character&apos;s superpower and his identity
-          are the same thing: noticing the world, and the person in front of him. When Leonardo
-          remarks on your blue scarf, it isn&apos;t a gimmick. It&apos;s who he is.
+          are the same thing: noticing, and having the restraint to know when not to. What he says is
+          drawn from his own notebooks and the historical record, and it is always about the shared
+          craft, how a painted gaze seems to follow you across a room, why he left so much unfinished,
+          never a remark about the person in front of him.
         </p>
       </section>
 
@@ -78,7 +83,7 @@ export function ChapterVision() {
         <SectionLabel>// how it comes together</SectionLabel>
         <p className="text-[#BBB] text-[15px] leading-[1.9] max-w-[680px] mb-8">
           One character, built in four chapters. Each keeps the same beating heart{" "}
-          (<span className="text-[#DDD]">perceive, decide, react believably</span>) and changes only
+          (<span className="text-[#DDD]">perceive, decide with restraint, react believably</span>) and changes only
           the body it lives in: from a screen, to a physical face, through simulation, into a robot
           that shares the room with you. The engine is the product; Leonardo is the first host.
         </p>
@@ -128,16 +133,16 @@ export function ChapterVision() {
             ·
           </span>
           <span className="font-[family-name:var(--font-share-tech-mono)] text-[11px] tracking-[1px] text-[#999]">
-            perceive → decide → react believably
+            perceive → decide with restraint → react believably
           </span>
         </div>
       </section>
 
       <BentoTile>
         <p className="text-[#BBB] text-[14px] leading-[1.8]">
-          <span style={{ color: ACCENT }}>Chapter 01 is running today.</span> The perception and
-          decision engine, the part that actually does the noticing, is built and live. Open{" "}
-          <span className="text-[#DDD]">The Mind</span> to see it work.
+          <span style={{ color: ACCENT }}>Chapter 01 is built and running today.</span> The
+          perception and restraint engine, the part that actually does the judging, is live and
+          auditable. Open <span className="text-[#DDD]">The Mind</span> to see it work.
         </p>
       </BentoTile>
     </div>

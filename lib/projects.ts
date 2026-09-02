@@ -15,21 +15,21 @@ export type ProjectDetail = {
 export const allProjects: ProjectDetail[] = [
   {
     slug: "davinci",
-    thumbnail: "/projects/davinci/hero_corridor.png",
+    thumbnail: "/projects/davinci/dashboard.png",
     category: "AI / Robotics",
     title: "Da Vinci",
     description:
-      "A real-time Leonardo da Vinci that actually sees the guests in front of it. It reads their gaze and the distinctive things they're wearing, then decides, the way a good host would, who to talk to and what to open with.",
+      "A real-time Leonardo da Vinci that reads who is genuinely present, then decides — with restraint — the single person to engage, or when to hold back. Every call is logged and re-derivable.",
     longDescription:
-      "Looking Alive is a real-time, perceptive interactive character. It reads the people in front of it (multi-person tracking, graded gaze and head orientation, open-vocabulary recognition of distinctive details), then makes a good-host judgment about who is open to a moment, what specific detail to open on, and when to wait or earn a distracted guest's attention. Every decision is logged and explainable. The persona is Leonardo da Vinci on purpose: history's greatest observer, so the character's superpower and identity are the same. It runs at ~26 FPS on a single consumer GPU as the Master's phase of a three-part arc toward a robotic, embodied character.",
-    tags: ["Computer Vision", "Open-Vocab Detection", "Gaze Estimation", "Real-Time", "Explainable AI"],
+      "Looking Alive is a real-time, perceptive interactive character. It reads the people in front of it (multi-person tracking, graded gaze and head orientation), then makes a restrained, good-host judgment: it engages at most one person, only when a genuine relevance signal and a social-license signal are both present, and otherwise it waits. When it does engage, it speaks authored, fact-checked lines grounded in Leonardo's notebooks and the historical record — about the shared craft, never about the person. Every decision, including every choice to hold back, is logged and re-derivable. The persona is Leonardo da Vinci on purpose: history's greatest observer, so the character's superpower and identity are the same. It runs at ~26 FPS on a single consumer GPU as the Master's phase of a three-part arc toward a robotic, embodied character.",
+    tags: ["Computer Vision", "Gaze Estimation", "Multi-Person Tracking", "Real-Time", "Explainable AI"],
     color: "#4DA8FF",
     status: "Active Research",
     highlights: [
       "Real-time multi-person perception and tracking at ~26 FPS on one consumer GPU",
-      "Open-vocabulary recognition of distinctive details, not a fixed object list",
+      "Restraint policy: engages at most one person, or deliberately waits",
       "Graded, directional gaze and head-orientation sensing",
-      "Explainable 'good host' decision engine: engage / bid-for-attention / wait",
+      "Every decision re-derivable from the log — 'why not her?' has an answer",
     ],
   },
   {

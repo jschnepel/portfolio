@@ -17,11 +17,11 @@ const featuredProjects: ProjectData[] = [
     category: "AI / Robotics",
     title: "Da Vinci",
     description:
-      "A real-time Leonardo that actually sees the guest in front of it. It reads their gaze and what they're wearing, then decides who to talk to, the way a good host would.",
-    tags: ["CV", "Open-Vocab", "Real-Time"],
+      "A real-time Leonardo that reads who is genuinely present, then decides — with restraint — the one person to engage, or when to simply wait. Every call is logged and explainable.",
+    tags: ["CV", "Gaze", "Real-Time"],
     color: "#4DA8FF",
     href: "/projects/davinci",
-    thumbnail: "/projects/davinci/hero_corridor.png",
+    thumbnail: "/projects/davinci/dashboard.png",
   },
   {
     category: "Robotics",
@@ -241,8 +241,8 @@ export function HomeClient({
                       style={{ aspectRatio: "16/10", background: "#000" }}
                     >
                       <img
-                        src="/projects/davinci/hero_corridor.png"
-                        alt="Da Vinci perception system choosing who to engage among guests"
+                        src="/projects/davinci/dashboard.png"
+                        alt="Da Vinci decision dashboard: who it engaged, who it passed over, and the signals behind each call"
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                       />
                     </div>
@@ -257,10 +257,10 @@ export function HomeClient({
                         Da Vinci
                       </h3>
                       <p className="text-[#9A9A9A] text-[14px] leading-[1.8] mb-5 transition-colors duration-300 group-hover:text-[#CCC]">
-                        A real-time Leonardo that actually sees the guest in front of it. It reads their gaze and what they&apos;re wearing, then decides who to talk to, the way a good host would.
+                        A real-time Leonardo that reads who is genuinely present, then decides &mdash; with restraint &mdash; the one person to engage, or when to simply wait. Every call is logged and explainable.
                       </p>
                       <div className="flex flex-wrap mb-5">
-                        {["Computer Vision", "Open-Vocab", "Gaze", "Real-Time"].map((t) => (
+                        {["Computer Vision", "Gaze", "Restraint", "Real-Time"].map((t) => (
                           <TechTag key={t} label={t} color="#4DA8FF" active />
                         ))}
                       </div>
