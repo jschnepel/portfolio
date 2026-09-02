@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { IMAGE_DIMENSIONS } from "../lib/imageDimensions";
 
 interface ZoomableImageProps {
   src: string;
@@ -10,6 +11,10 @@ interface ZoomableImageProps {
 
 export function ZoomableImage({ src, alt, accent = "#4DA8FF" }: ZoomableImageProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  // Reserve the right amount of space before the (lazy) image arrives, so the
+  // page doesn't reflow underneath the reader as figures load in.
+  const dimensions = IMAGE_DIMENSIONS[src];
 
   useEffect(() => {
     if (!isOpen) return;
@@ -45,7 +50,12 @@ export function ZoomableImage({ src, alt, accent = "#4DA8FF" }: ZoomableImagePro
         <img
           src={src}
           alt={alt}
+          width={dimensions?.[0]}
+          height={dimensions?.[1]}
+          loading="lazy"
+          decoding="async"
           className="w-full h-auto block transition-transform duration-500 ease-out group-hover:scale-[1.015]"
+          style={dimensions ? { aspectRatio: `${dimensions[0]} / ${dimensions[1]}` } : undefined}
         />
         <span
           aria-hidden="true"

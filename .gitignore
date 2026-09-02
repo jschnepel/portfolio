@@ -84,3 +84,10 @@ projects/davinci/media/hero_engage_3people.png
 projects/davinci/media/montage_states.png
 projects/davinci/media/explainability.mp4
 projects/davinci/media/explainability_1080p.mp4
+
+# De-identified re-cuts of the above (faces pixelated, bodies/clothing still visible).
+# Held back pending Joey's call: nothing on the site references them, so publishing them
+# to a public repo would expose people-media no page actually needs. Delete these two
+# lines and re-run scripts/gen-image-dimensions.mjs to publish them.
+public/projects/davinci/hero_faces_deid.png
+public/projects/davinci/hero_gaze_deid.png
