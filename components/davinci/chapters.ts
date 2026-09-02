@@ -1,4 +1,4 @@
-export type ChapterStatus = "vision" | "building" | "next" | "planned";
+export type ChapterStatus = "vision" | "building" | "built" | "next" | "planned";
 
 export interface Chapter {
   id: string;
@@ -11,9 +11,9 @@ export interface Chapter {
 
 export const CHAPTERS: Chapter[] = [
   { id: "vision", num: "00", name: "The Vision", literal: "The Idea", status: "vision", statusLabel: "The throughline" },
-  { id: "mind", num: "01", name: "The Mind", literal: "Interaction Models", status: "building", statusLabel: "Building now" },
-  { id: "face", num: "02", name: "The Face", literal: "Expressive Bust", status: "next", statusLabel: "Next build" },
-  { id: "bridge", num: "03", name: "The Bridge", literal: "Sim-to-Real", status: "planned", statusLabel: "Planned" },
+  { id: "mind", num: "01", name: "The Mind", literal: "Interaction Models", status: "built", statusLabel: "Built & running" },
+  { id: "face", num: "02", name: "The Face", literal: "Expressive Character", status: "building", statusLabel: "Building now" },
+  { id: "bridge", num: "03", name: "The Bridge", literal: "Sim-to-Real", status: "next", statusLabel: "Next build" },
   { id: "body", num: "04", name: "The Body", literal: "Live Robot", status: "planned", statusLabel: "Planned" },
 ];
 
@@ -27,20 +27,6 @@ export interface TeaserContent {
 }
 
 export const TEASERS: Record<string, TeaserContent> = {
-  face: {
-    tagline: "Give the mind a face.",
-    proves:
-      "Phase one already decides who to notice and what to say. This phase makes that judgment visible on a physical Leonardo bust: eyes that lock onto the chosen guest, a brow and mouth that react in persona, and a voice the face actually speaks. Same brain, now with a countenance.",
-    goal: "A guest steps sideways and the eyes follow the person, not the camera.",
-    build: [
-      "Articulated head rig: eyes, brow, and jaw",
-      "Gaze actuation driven by the attention signal that already exists",
-      "Real-time lip-sync to the in-character voice",
-      "Affect read → expression mapping, so the reaction fits the moment",
-    ],
-    hero: { label: "bust concept render", ratio: "16 / 10" },
-    visuals: [{ label: "rig & actuation diagram" }, { label: "gaze-lock capture" }, { label: "expression range sheet" }],
-  },
   bridge: {
     tagline: "Cross from simulation to hardware.",
     proves:

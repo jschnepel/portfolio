@@ -12,6 +12,7 @@ import { CHAPTERS, TEASERS } from "./davinci/chapters";
 import { ChapterNav } from "./davinci/ChapterNav";
 import { ChapterVision } from "./davinci/ChapterVision";
 import { ChapterMind } from "./davinci/ChapterMind";
+import { ChapterFace } from "./davinci/ChapterFace";
 import { ChapterTeaser } from "./davinci/ChapterTeaser";
 
 const TAGS = [
@@ -159,8 +160,8 @@ export function DavinciCaseStudy() {
 
       {/* ── ORIENT ── */}
       <p className="text-[#888] text-[14px] leading-[1.7] max-w-[620px] mt-14 mb-8">
-        Five chapters: the vision, then four builds that bring it to life. Chapter one runs today;
-        the rest are mapped. Pick a chapter to follow the story.
+        Five chapters: the vision, then four builds that bring it to life. Chapter one runs today,
+        chapter two is underway, and the rest are mapped. Pick a chapter to follow the story.
       </p>
 
       {/* ── CHAPTER NAV (sticky tabs) ── */}
@@ -179,6 +180,8 @@ export function DavinciCaseStudy() {
           <ChapterVision />
         ) : active === "mind" ? (
           <ChapterMind />
+        ) : active === "face" ? (
+          <ChapterFace />
         ) : (
           <ChapterTeaser chapter={activeChapter} content={TEASERS[active]} />
         )}

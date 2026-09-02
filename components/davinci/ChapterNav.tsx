@@ -23,6 +23,15 @@ function StatusDot({ status, active }: { status: ChapterStatus; active: boolean 
       />
     );
   }
+  if (status === "built") {
+    return (
+      <span
+        aria-hidden="true"
+        className="w-1.5 h-1.5 rounded-full"
+        style={{ background: ACCENT, boxShadow: `0 0 6px ${ACCENT}77` }}
+      />
+    );
+  }
   if (status === "next") {
     return (
       <span
