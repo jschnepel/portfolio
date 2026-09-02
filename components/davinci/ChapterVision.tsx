@@ -3,13 +3,13 @@ import { ScrollReveal } from "../ScrollReveal";
 import { ACCENT, SectionLabel, PlaceholderFrame } from "./shared";
 
 const ARC = [
-  { num: "01", name: "The Mind", body: "a screen", role: "Perceives, then decides with restraint who to engage — or when to wait.", lit: true },
-  { num: "02", name: "The Face", body: "a physical bust", role: "Reacts with a face: gaze, brow, and voice in persona.", lit: false },
-  { num: "03", name: "The Bridge", body: "a simulator", role: "Expressive motion you can trust, sim to real.", lit: false },
-  { num: "04", name: "The Body", body: "a robot", role: "Fully embodied, sharing the room with guests.", lit: false },
+  { id: "mind", num: "01", name: "The Mind", body: "a screen", role: "Perceives, then decides with restraint who to engage — or when to wait.", lit: true },
+  { id: "face", num: "02", name: "The Face", body: "a rendered head", role: "Reacts with a face: gaze, brow, and mouth, driven by the same logged decision.", lit: true },
+  { id: "bridge", num: "03", name: "The Bridge", body: "a simulator", role: "Expressive motion you can trust, sim to real.", lit: false },
+  { id: "body", num: "04", name: "The Body", body: "a robot", role: "Fully embodied, sharing the room with guests.", lit: false },
 ];
 
-export function ChapterVision() {
+export function ChapterVision({ onSelect }: { onSelect: (id: string) => void }) {
   return (
     <div>
       <SectionLabel>// chapter 00 · the idea</SectionLabel>
@@ -91,12 +91,18 @@ export function ChapterVision() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {ARC.map((s, i) => (
             <ScrollReveal key={s.num} delay={0.05 * (i + 1)}>
-              <div
-                className="h-full rounded-lg p-4"
+              <button
+                type="button"
+                onClick={() => onSelect(s.id)}
+                aria-label={`Open chapter ${s.num}, ${s.name}`}
+                className="group h-full w-full text-left rounded-lg p-4 cursor-pointer transition-all duration-200 hover:-translate-y-0.5 hover:brightness-125 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                 style={{
                   background: s.lit ? `${ACCENT}0E` : "rgba(255,255,255,0.02)",
                   border: s.lit ? `0.5px solid ${ACCENT}40` : "0.5px solid rgba(255,255,255,0.06)",
                   opacity: s.lit ? 1 : 0.72,
+                  // @ts-expect-error -- CSS custom property for the focus ring colour
+                  "--tw-ring-color": `${ACCENT}88`,
+                  "--tw-ring-offset-color": "#0D0F12",
                 }}
               >
                 <div className="flex items-baseline justify-between mb-2">
@@ -114,7 +120,19 @@ export function ChapterVision() {
                   {s.name}
                 </h4>
                 <p className="text-[#888] text-[12.5px] leading-[1.6]">{s.role}</p>
-              </div>
+                <span
+                  className="inline-flex items-center gap-1.5 mt-3 font-[family-name:var(--font-share-tech-mono)] text-[10px] tracking-[1px] transition-colors duration-200"
+                  style={{ color: `${ACCENT}99` }}
+                >
+                  {s.lit ? "Read chapter" : "See the plan"}
+                  <span
+                    aria-hidden="true"
+                    className="transition-transform duration-200 group-hover:translate-x-1"
+                  >
+                    &rarr;
+                  </span>
+                </span>
+              </button>
             </ScrollReveal>
           ))}
         </div>
@@ -140,9 +158,10 @@ export function ChapterVision() {
 
       <BentoTile>
         <p className="text-[#BBB] text-[14px] leading-[1.8]">
-          <span style={{ color: ACCENT }}>Chapter 01 is built and running today.</span> The
+          <span style={{ color: ACCENT }}>Two chapters have work in them today.</span> The
           perception and restraint engine, the part that actually does the judging, is live and
-          auditable. Open <span className="text-[#DDD]">The Mind</span> to see it work.
+          auditable in <span className="text-[#DDD]">The Mind</span> — and the face it drives is
+          rendering now in <span className="text-[#DDD]">The Face</span>.
         </p>
       </BentoTile>
     </div>

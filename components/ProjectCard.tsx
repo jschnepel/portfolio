@@ -13,6 +13,8 @@ export type ProjectData = {
   href?: string;
   thumbnail?: string;
   liveUrl?: string;
+  /** Optional: marks a case study that is read as a series, e.g. "5 chapters". */
+  series?: string;
 };
 
 export function ProjectCard({
@@ -118,16 +120,31 @@ export function ProjectCard({
         </div>
       )}
 
-      {/* Category */}
-      <p
-        className="relative font-[family-name:var(--font-share-tech-mono)] text-[11px] uppercase tracking-[1.5px] mb-3"
-        style={{
-          color: hover ? project.color : "#8A8A8A",
-          transition: "color 0.3s ease",
-        }}
-      >
-        {project.category}
-      </p>
+      {/* Category, plus a series marker when the case study is read in chapters */}
+      <div className="relative flex items-center gap-2.5 flex-wrap mb-3">
+        <p
+          className="font-[family-name:var(--font-share-tech-mono)] text-[11px] uppercase tracking-[1.5px]"
+          style={{
+            color: hover ? project.color : "#8A8A8A",
+            transition: "color 0.3s ease",
+          }}
+        >
+          {project.category}
+        </p>
+        {project.series && (
+          <span
+            className="font-[family-name:var(--font-share-tech-mono)] text-[9px] tracking-[1px] px-2 py-0.5 rounded"
+            style={{
+              color: hover ? project.color : "#7A7D85",
+              background: hover ? `${project.color}14` : "rgba(255,255,255,0.03)",
+              border: `0.5px solid ${hover ? `${project.color}3D` : "rgba(255,255,255,0.08)"}`,
+              transition: "all 0.3s ease",
+            }}
+          >
+            {project.series}
+          </span>
+        )}
+      </div>
 
       {/* Title */}
       <h4

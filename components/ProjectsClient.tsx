@@ -27,6 +27,7 @@ export function ProjectsClient() {
     href: `/projects/${p.slug}`,
     thumbnail: p.thumbnail,
     liveUrl: p.liveUrl,
+    series: p.series,
   }));
 
   return (

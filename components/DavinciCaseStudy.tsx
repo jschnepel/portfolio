@@ -14,6 +14,7 @@ import { ChapterVision } from "./davinci/ChapterVision";
 import { ChapterMind } from "./davinci/ChapterMind";
 import { ChapterFace } from "./davinci/ChapterFace";
 import { ChapterTeaser } from "./davinci/ChapterTeaser";
+import { ChapterPager } from "./davinci/ChapterPager";
 
 const TAGS = [
   "Computer Vision",
@@ -88,7 +89,8 @@ export function DavinciCaseStudy() {
       const el = panelRef.current;
       if (!el) return;
       const top = el.getBoundingClientRect().top + window.scrollY - 132;
-      window.scrollTo({ top, behavior: "smooth" });
+      const smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top, behavior: smooth ? "smooth" : "auto" });
     });
   };
 
@@ -159,10 +161,20 @@ export function DavinciCaseStudy() {
       </ScrollReveal>
 
       {/* ── ORIENT ── */}
-      <p className="text-[#888] text-[14px] leading-[1.7] max-w-[620px] mt-14 mb-8">
-        Five chapters: the vision, then four builds that bring it to life. Chapter one runs today,
-        chapter two is underway, and the rest are mapped. Pick a chapter to follow the story.
-      </p>
+      <div className="mt-14 mb-6 max-w-[620px]">
+        <h2
+          className="font-[family-name:var(--font-chakra-petch)] font-bold text-white mb-3"
+          style={{ fontSize: "clamp(21px, 2.6vw, 26px)", letterSpacing: "-0.4px" }}
+        >
+          The build, in five chapters
+        </h2>
+        <p className="text-[#999] text-[14px] leading-[1.75]">
+          One character across four bodies, plus the idea that ties them together. Two chapters
+          have work you can read today: <span className="text-[#DDD]">The Mind</span> is built and
+          running, and <span className="text-[#DDD]">The Face</span> is underway. The last two are
+          mapped. Open any chapter below.
+        </p>
+      </div>
 
       {/* ── CHAPTER NAV (sticky tabs) ── */}
       <ChapterNav activeId={active} onSelect={select} />
@@ -177,7 +189,7 @@ export function DavinciCaseStudy() {
         className="outline-none scroll-mt-[132px]"
       >
         {active === "vision" ? (
-          <ChapterVision />
+          <ChapterVision onSelect={select} />
         ) : active === "mind" ? (
           <ChapterMind />
         ) : active === "face" ? (
@@ -185,6 +197,9 @@ export function DavinciCaseStudy() {
         ) : (
           <ChapterTeaser chapter={activeChapter} content={TEASERS[active]} />
         )}
+
+        {/* Carry the reader into the next chapter instead of into the footer. */}
+        <ChapterPager activeId={active} onSelect={select} />
       </div>
 
       {/* ── SHARED FOUNDATION (constant under every chapter) ── */}

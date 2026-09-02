@@ -22,6 +22,7 @@ const featuredProjects: ProjectData[] = [
     color: "#4DA8FF",
     href: "/projects/davinci",
     thumbnail: "/projects/davinci/dashboard.png",
+    series: "5 chapters",
   },
   {
     category: "Robotics",

@@ -10,12 +10,15 @@ export type ProjectDetail = {
   highlights: string[];
   thumbnail: string;
   liveUrl?: string;
+  /** Optional: marks a case study that is read as a series, e.g. "5 chapters". */
+  series?: string;
 };
 
 export const allProjects: ProjectDetail[] = [
   {
     slug: "davinci",
     thumbnail: "/projects/davinci/dashboard.png",
+    series: "5 chapters",
     category: "AI / Robotics",
     title: "Da Vinci",
     description:
