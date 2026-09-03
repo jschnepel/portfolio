@@ -1,5 +1,6 @@
+import Link from "next/link";
 import { ACCENT } from "./shared";
-import { CHAPTERS } from "./chapters";
+import { CHAPTERS, chapterHref } from "./chapters";
 
 /**
  * Carries the reader from the end of one chapter into the next.
@@ -7,13 +8,7 @@ import { CHAPTERS } from "./chapters";
  * Without this, finishing a chapter drops you straight into the page footer, so a
  * visitor can leave having never learned the other chapters existed.
  */
-export function ChapterPager({
-  activeId,
-  onSelect,
-}: {
-  activeId: string;
-  onSelect: (id: string) => void;
-}) {
+export function ChapterPager({ activeId }: { activeId: string }) {
   const i = CHAPTERS.findIndex((c) => c.id === activeId);
   const prev = i > 0 ? CHAPTERS[i - 1] : null;
   const next = i < CHAPTERS.length - 1 ? CHAPTERS[i + 1] : null;
@@ -28,11 +23,11 @@ export function ChapterPager({
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {prev ? (
-          <PagerLink chapter={prev} direction="prev" onSelect={onSelect} />
+          <PagerLink chapter={prev} direction="prev" />
         ) : (
           <span aria-hidden="true" />
         )}
-        {next && <PagerLink chapter={next} direction="next" onSelect={onSelect} />}
+        {next && <PagerLink chapter={next} direction="next" />}
       </div>
     </nav>
   );
@@ -41,19 +36,17 @@ export function ChapterPager({
 function PagerLink({
   chapter,
   direction,
-  onSelect,
 }: {
   chapter: (typeof CHAPTERS)[number];
   direction: "prev" | "next";
-  onSelect: (id: string) => void;
 }) {
   const isNext = direction === "next";
 
   return (
-    <button
-      type="button"
-      onClick={() => onSelect(chapter.id)}
-      className={`group rounded-lg px-5 py-4 cursor-pointer transition-all duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
+    <Link
+      href={chapterHref(chapter.id)}
+      scroll={false}
+      className={`group block no-underline rounded-lg px-5 py-4 transition-all duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
         isNext ? "text-right sm:col-start-2" : "text-left"
       }`}
       style={{
@@ -102,6 +95,6 @@ function PagerLink({
       >
         {chapter.statusLabel}
       </span>
-    </button>
+    </Link>
   );
 }

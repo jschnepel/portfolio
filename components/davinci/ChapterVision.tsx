@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { BentoTile } from "../BentoTile";
 import { ScrollReveal } from "../ScrollReveal";
 import { ACCENT, SectionLabel, PlaceholderFrame } from "./shared";
+import { chapterHref } from "./chapters";
 
 const ARC = [
   { id: "mind", num: "01", name: "The Mind", body: "a screen", role: "Perceives, then decides with restraint who to engage — or when to wait.", lit: true },
@@ -9,7 +11,7 @@ const ARC = [
   { id: "body", num: "04", name: "The Body", body: "a robot", role: "Fully embodied, sharing the room with guests.", lit: false },
 ];
 
-export function ChapterVision({ onSelect }: { onSelect: (id: string) => void }) {
+export function ChapterVision() {
   return (
     <div>
       <SectionLabel>// chapter 00 · the idea</SectionLabel>
@@ -91,11 +93,11 @@ export function ChapterVision({ onSelect }: { onSelect: (id: string) => void }) 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {ARC.map((s, i) => (
             <ScrollReveal key={s.num} delay={0.05 * (i + 1)}>
-              <button
-                type="button"
-                onClick={() => onSelect(s.id)}
+              <Link
+                href={chapterHref(s.id)}
+                scroll={false}
                 aria-label={`Open chapter ${s.num}, ${s.name}`}
-                className="group h-full w-full text-left rounded-lg p-4 cursor-pointer transition-all duration-200 hover:-translate-y-0.5 hover:brightness-125 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                className="group block h-full w-full text-left no-underline rounded-lg p-4 transition-all duration-200 hover:-translate-y-0.5 hover:brightness-125 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                 style={{
                   background: s.lit ? `${ACCENT}0E` : "rgba(255,255,255,0.02)",
                   border: s.lit ? `0.5px solid ${ACCENT}40` : "0.5px solid rgba(255,255,255,0.06)",
@@ -132,7 +134,7 @@ export function ChapterVision({ onSelect }: { onSelect: (id: string) => void }) 
                     &rarr;
                   </span>
                 </span>
-              </button>
+              </Link>
             </ScrollReveal>
           ))}
         </div>

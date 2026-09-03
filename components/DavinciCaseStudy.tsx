@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { BentoTile } from "./BentoTile";
 import { TechTag } from "./TechTag";
@@ -8,7 +5,7 @@ import { ScrollReveal } from "./ScrollReveal";
 import { AwardQuote } from "./AwardQuote";
 import { Footer } from "./Footer";
 import { ACCENT, SectionLabel, ImageFrame } from "./davinci/shared";
-import { CHAPTERS, TEASERS } from "./davinci/chapters";
+import { CHAPTERS, TEASERS, getChapter } from "./davinci/chapters";
 import { ChapterNav } from "./davinci/ChapterNav";
 import { ChapterVision } from "./davinci/ChapterVision";
 import { ChapterMind } from "./davinci/ChapterMind";
@@ -68,33 +65,9 @@ const refsMethods = [
   "Glas, D. F., Shiomi, M., Kanda, T., et al. (2017). Personal Greetings: Personalizing Robot Utterances Based on Novelty of Observed Behavior. Int. J. of Social Robotics.",
 ];
 
-export function DavinciCaseStudy() {
-  const [active, setActive] = useState("vision");
-  const panelRef = useRef<HTMLDivElement>(null);
-
-  // Deep-link support: read ?chapter= on mount.
-  useEffect(() => {
-    const c = new URLSearchParams(window.location.search).get("chapter");
-    if (c && CHAPTERS.some((ch) => ch.id === c)) setActive(c);
-  }, []);
-
-  const select = (id: string) => {
-    setActive(id);
-    const url = new URL(window.location.href);
-    url.searchParams.set("chapter", id);
-    window.history.replaceState({}, "", url);
-
-    // Land the reader at the top of the new chapter, clear of the sticky chrome.
-    requestAnimationFrame(() => {
-      const el = panelRef.current;
-      if (!el) return;
-      const top = el.getBoundingClientRect().top + window.scrollY - 132;
-      const smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      window.scrollTo({ top, behavior: smooth ? "smooth" : "auto" });
-    });
-  };
-
-  const activeChapter = CHAPTERS.find((c) => c.id === active) ?? CHAPTERS[0];
+export function DavinciCaseStudy({ chapter }: { chapter: string }) {
+  const active = chapter;
+  const activeChapter = getChapter(active) ?? CHAPTERS[0];
 
   return (
     <div className="relative z-10 pt-32 pb-16 max-w-[960px] mx-auto px-8">
@@ -177,19 +150,12 @@ export function DavinciCaseStudy() {
       </div>
 
       {/* ── CHAPTER NAV (sticky tabs) ── */}
-      <ChapterNav activeId={active} onSelect={select} />
+      <ChapterNav activeId={active} />
 
       {/* ── ACTIVE CHAPTER PANEL ── */}
-      <div
-        ref={panelRef}
-        role="tabpanel"
-        id={`chapter-panel-${active}`}
-        aria-labelledby={`chapter-tab-${active}`}
-        tabIndex={0}
-        className="outline-none scroll-mt-[132px]"
-      >
+      <div id={`chapter-panel-${active}`} className="scroll-mt-[132px]">
         {active === "vision" ? (
-          <ChapterVision onSelect={select} />
+          <ChapterVision />
         ) : active === "mind" ? (
           <ChapterMind />
         ) : active === "face" ? (
@@ -199,7 +165,7 @@ export function DavinciCaseStudy() {
         )}
 
         {/* Carry the reader into the next chapter instead of into the footer. */}
-        <ChapterPager activeId={active} onSelect={select} />
+        <ChapterPager activeId={active} />
       </div>
 
       {/* ── SHARED FOUNDATION (constant under every chapter) ── */}

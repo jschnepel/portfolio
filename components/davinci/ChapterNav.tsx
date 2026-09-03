@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
+import Link from "next/link";
 import { ACCENT } from "./shared";
-import { CHAPTERS, ChapterStatus } from "./chapters";
+import { CHAPTERS, ChapterStatus, chapterHref } from "./chapters";
 
 /**
  * Chapters that represent work already reached. The spine runs bright up to here
@@ -59,47 +60,10 @@ function SpineNode({ status, active }: { status: ChapterStatus; active: boolean 
   );
 }
 
-export function ChapterNav({
-  activeId,
-  onSelect,
-}: {
-  activeId: string;
-  onSelect: (id: string) => void;
-}) {
-  const tabsRef = useRef<(HTMLButtonElement | null)[]>([]);
+export function ChapterNav({ activeId }: { activeId: string }) {
   const [hovered, setHovered] = useState<string | null>(null);
-
   const activeIndex = CHAPTERS.findIndex((c) => c.id === activeId);
 
-  const move = (to: number) => {
-    const i = (to + CHAPTERS.length) % CHAPTERS.length;
-    onSelect(CHAPTERS[i].id);
-    tabsRef.current[i]?.focus();
-  };
-
-  const onKeyDown = (e: React.KeyboardEvent) => {
-    const idx = activeIndex;
-    switch (e.key) {
-      case "ArrowRight":
-      case "ArrowDown":
-        e.preventDefault();
-        move(idx + 1);
-        break;
-      case "ArrowLeft":
-      case "ArrowUp":
-        e.preventDefault();
-        move(idx - 1);
-        break;
-      case "Home":
-        e.preventDefault();
-        move(0);
-        break;
-      case "End":
-        e.preventDefault();
-        move(CHAPTERS.length - 1);
-        break;
-    }
-  };
 
   return (
     <div
@@ -119,7 +83,7 @@ export function ChapterNav({
           <span className="text-[#4A4D55]"> / {CHAPTERS.length}</span>
         </p>
         <p className="font-[family-name:var(--font-share-tech-mono)] text-[10px] tracking-[1px] text-[#4A4D55] hidden sm:block">
-          Select a chapter, or use &larr; &rarr;
+          Each chapter has its own page
         </p>
       </div>
 
@@ -145,35 +109,24 @@ export function ChapterNav({
         ))}
       </div>
 
-      <div
-        role="tablist"
-        aria-label="Build chapters"
-        onKeyDown={onKeyDown}
-        className="grid grid-cols-2 md:grid-cols-5 gap-2"
-      >
-        {CHAPTERS.map((c, i) => {
+      <nav aria-label="Chapters" className="grid grid-cols-2 md:grid-cols-5 gap-2">
+        {CHAPTERS.map((c) => {
           const active = c.id === activeId;
           const hot = hovered === c.id && !active;
           const planned = c.status === "planned";
 
           return (
-            <button
+            <Link
               key={c.id}
-              ref={(el) => {
-                tabsRef.current[i] = el;
-              }}
-              type="button"
-              role="tab"
+              href={chapterHref(c.id)}
+              scroll={false}
               id={`chapter-tab-${c.id}`}
-              aria-selected={active}
-              aria-controls={`chapter-panel-${c.id}`}
-              tabIndex={active ? 0 : -1}
-              onClick={() => onSelect(c.id)}
+              aria-current={active ? "page" : undefined}
               onMouseEnter={() => setHovered(c.id)}
               onMouseLeave={() => setHovered(null)}
               onFocus={() => setHovered(c.id)}
               onBlur={() => setHovered(null)}
-              className={`relative overflow-hidden text-left rounded-lg px-3.5 pt-3 pb-2.5 cursor-pointer transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
+              className={`relative block overflow-hidden text-left no-underline rounded-lg px-3.5 pt-3 pb-2.5 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
                 c.id === "vision" ? "col-span-2 md:col-span-1" : ""
               }`}
               style={{
@@ -229,10 +182,10 @@ export function ChapterNav({
               >
                 {c.statusLabel}
               </div>
-            </button>
+            </Link>
           );
         })}
-      </div>
+      </nav>
     </div>
   );
 }

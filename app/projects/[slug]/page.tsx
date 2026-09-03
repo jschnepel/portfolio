@@ -6,11 +6,11 @@ import { BentoTile } from "@/components/BentoTile";
 import { BallbotFollower } from "@/components/BallbotFollower";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { Footer } from "@/components/Footer";
-import { DavinciCaseStudy } from "@/components/DavinciCaseStudy";
 import { PixelBrixCaseStudy } from "@/components/PixelBrixCaseStudy";
 
 export function generateStaticParams() {
-  return allProjects.map((p) => ({ slug: p.slug }));
+  // Da Vinci is served by app/projects/davinci/** so each chapter is its own page.
+  return allProjects.filter((p) => p.slug !== "davinci").map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({
@@ -24,10 +24,19 @@ export async function generateMetadata({
   return {
     title: project.title,
     description: project.description,
+    alternates: { canonical: `/projects/${slug}` },
     openGraph: {
+      type: "article",
       title: project.title,
       description: project.description,
+      url: `/projects/${slug}`,
       images: project.thumbnail ? [{ url: project.thumbnail }] : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.title,
+      description: project.description,
+      images: project.thumbnail ? [project.thumbnail] : [],
     },
   };
 }
@@ -41,7 +50,6 @@ export default async function ProjectDetailPage({
   const project = getProject(slug);
   if (!project) notFound();
 
-  if (slug === "davinci") return <DavinciCaseStudy />;
   if (slug === "pixelbrix") return <PixelBrixCaseStudy />;
 
   return (
